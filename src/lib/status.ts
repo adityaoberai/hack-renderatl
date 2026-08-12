@@ -4,10 +4,10 @@
  * Colour carries the single most important idea in the product, so the mapping
  * lives in exactly one place:
  *
- *   green  — recent evidence says someone got in
- *   amber  — probably fine, but nobody has confirmed lately
- *   red    — recent evidence says they could not get in
- *   grey   — we genuinely do not know
+ *   green: recent evidence says someone got in
+ *   amber: probably fine, but nobody has confirmed lately
+ *   red: recent evidence says they could not get in
+ *   grey: we genuinely do not know
  */
 
 import type { AvailabilityStatus, NearbyRestroom, Restroom, SourceId } from './types';
@@ -85,7 +85,7 @@ export interface Attribute {
 	display: string;
 	/**
 	 * Whether this reads as good or bad news for the user. Kept separate from the
-	 * displayed value: "Gate or turnstile — Yes" is a *bad* thing, so tone cannot
+	 * displayed value: "Gate or turnstile: Yes" is a *bad* thing, so tone cannot
 	 * simply be derived from a yes/no.
 	 */
 	tone: 'good' | 'bad' | 'neutral';
@@ -93,7 +93,7 @@ export interface Attribute {
 
 /**
  * Attributes we actually have data for. A `null` in the record means the source
- * never recorded it, and it is omitted entirely — never rendered as a "no".
+ * never recorded it, and it is omitted entirely: never rendered as a "no".
  */
 export function accessAttributes(restroom: Restroom): Attribute[] {
 	const out: Attribute[] = [];
@@ -158,7 +158,7 @@ export const ATTRIBUTE_TONE: Record<Attribute['tone'], string> = {
 	neutral: 'text-ink-subtle'
 };
 
-/** The compact attribute chips shown on a result card — positives only, capped. */
+/** The compact attribute chips shown on a result card: positives only, capped. */
 export function cardAttributes(restroom: Restroom, limit = 4): string[] {
 	const chips: string[] = [];
 	if (restroom.officiallyPublic === true) chips.push('Public');
@@ -212,7 +212,7 @@ export function provenanceLine(entry: NearbyRestroom, now: Date = new Date()): s
 	return parts.join(' · ');
 }
 
-/** Colour for the confidence number itself — same language as the status. */
+/** Colour for the confidence number itself: same language as the status. */
 export function scoreTone(score: number): string {
 	if (score >= 70) return 'text-ok';
 	if (score >= 52) return 'text-warn';

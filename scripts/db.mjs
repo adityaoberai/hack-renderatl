@@ -3,11 +3,10 @@
  *
  *   node scripts/db.mjs setup    # create tables, hypertable + continuous aggregate
  *   node scripts/db.mjs import   # load the imported public datasets (idempotent)
- *   node scripts/db.mjs seed     # append a demo report history relative to now
  *   node scripts/db.mjs status   # what is actually in the database
  *   node scripts/db.mjs reset    # drop everything (asks for --force)
  *
- * Typical first run:  setup → import → seed
+ * Typical first run:  setup → import
  *
  * Needs DATABASE_URL, e.g.
  *   postgres://tsdbadmin:…@….tsdb.cloud.timescale.com:39999/tsdb?sslmode=require
@@ -18,7 +17,6 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import postgres from 'postgres';
 import 'dotenv/config';
-import { generateSeedReports } from '../src/lib/server/seed.ts';
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), '..');
 const DATA_DIR = path.join(root, 'src/lib/server/data');
@@ -162,42 +160,6 @@ async function importRestrooms() {
 	for (const row of bySource) console.log(`      ${row.source}: ${row.count}`);
 }
 
-/* ------------------------------------------------------------------- seed */
-
-async function seed() {
-	const restrooms = allRestrooms();
-	const existing =
-		await sql`SELECT COUNT(*)::int AS count FROM reports WHERE metadata->>'seeded' = 'true'`;
-	if (existing[0].count > 0) {
-		console.log(`Clearing ${existing[0].count} previously seeded reports (real reports are kept)…`);
-		await sql`DELETE FROM reports WHERE metadata->>'seeded' = 'true'`;
-	}
-
-	const reports = generateSeedReports(restrooms, new Date());
-	console.log(`Seeding ${reports.length} timestamped demo reports…`);
-
-	const CHUNK = 500;
-	for (let i = 0; i < reports.length; i += CHUNK) {
-		const chunk = reports.slice(i, i + CHUNK).map((r) => ({
-			restroom_id: r.restroomId,
-			status: r.status,
-			created_at: r.createdAt,
-			metadata: sql.json(r.metadata)
-		}));
-		await sql`INSERT INTO reports ${sql(chunk)}`;
-		console.log(`  ${Math.min(i + CHUNK, reports.length)}/${reports.length}`);
-	}
-
-	// Make the freshly-inserted history visible to the continuous aggregate.
-	try {
-		await sql.unsafe(`CALL refresh_continuous_aggregate('reports_hourly', NULL, NULL)`);
-		console.log('  ✓ reports_hourly continuous aggregate refreshed');
-	} catch {
-		/* plain PostgreSQL — nothing to refresh */
-	}
-	console.log('  ✓ seeded');
-}
-
 /* ----------------------------------------------------------------- status */
 
 async function status() {
@@ -261,7 +223,7 @@ async function reset() {
 
 /* ------------------------------------------------------------------- main */
 
-const commands = { setup, import: importRestrooms, seed, status, reset };
+const commands = { setup, import: importRestrooms, status, reset };
 const command = process.argv[2];
 
 if (!command || !(command in commands)) {

@@ -49,8 +49,8 @@ export default defineConfig(
 			'svelte/prefer-svelte-reactivity': 'off',
 
 			// Internal navigation goes through `resolve()` from `$app/paths`. What
-			// remains are external, runtime-computed URLs — maps deep-links, OSF,
-			// PLOS, OpenStreetMap — which the rule cannot distinguish from routes.
+			// remains are external, runtime-computed URLs: maps deep-links, OSF,
+			// PLOS, OpenStreetMap: which the rule cannot distinguish from routes.
 			'svelte/no-navigation-without-resolve': 'off'
 		}
 	}

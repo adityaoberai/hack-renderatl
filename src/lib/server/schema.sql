@@ -1,12 +1,12 @@
--- Relief ATL — Tiger Data schema
+-- Relief ATL: Tiger Data schema
 --
 -- Two tables, two very different jobs:
 --
---   restrooms  — slow-moving facts imported from public datasets (GSU audit,
+--   restrooms: slow-moving facts imported from public datasets (GSU audit,
 --                OpenStreetMap, and later MARTA / City of Atlanta / Throne).
 --                One row per physical location. Provenance is never discarded.
 --
---   reports    — the time-series. Every anonymous community confirmation is an
+--   reports: the time-series. Every anonymous community confirmation is an
 --                immutable, timestamped event. We never UPDATE a status; the
 --                current picture is always *derived* from recent events, which
 --                is exactly what Tiger Data is good at.
@@ -43,7 +43,7 @@ CREATE TABLE IF NOT EXISTS restrooms (
     code_or_key_required    BOOLEAN,
     gate_or_turnstile       BOOLEAN,
 
-    -- Accessibility + facilities. NULL means "the source didn't say" — it is
+    -- Accessibility + facilities. NULL means "the source didn't say": it is
     -- never rendered as a "no". We do not infer missing attributes.
     wheelchair_accessible   BOOLEAN,
     gender_neutral          BOOLEAN,

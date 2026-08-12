@@ -12,13 +12,13 @@
 	const STUDY = [
 		{ value: '262', label: 'potential restroom locations audited', small: false },
 		{ value: '15', label: 'areas of Atlanta', small: false },
-		{ value: 'Feb–Apr 2025', label: 'field work window', small: true },
+		{ value: 'Feb-Apr 2025', label: 'field work window', small: true },
 		{ value: '117', label: 'locations had an accessible restroom when visited', small: false }
 	];
 </script>
 
 <svelte:head>
-	<title>About the data — Relief ATL</title>
+	<title>About the data: Relief ATL</title>
 	<meta
 		name="description"
 		content="Relief ATL is built on a Georgia State University audit of 262 potential public restroom locations across Atlanta, layered with anonymous community confirmations."
@@ -46,7 +46,7 @@
 		<p class="mt-4 text-[16px] leading-relaxed text-ink-muted">
 			Relief ATL starts with public data from a Georgia State University study of restroom
 			accessibility in Atlanta. Researchers physically visited candidate locations instead of
-			relying on map listings — and what they found is the reason this app exists.
+			relying on map listings: and what they found is the reason this app exists.
 		</p>
 
 		<!-- Headline study numbers -->
@@ -67,9 +67,10 @@
 				{/each}
 			</dl>
 			<p class="mt-3 text-[14px] leading-relaxed text-ink-muted">
-				Of the 262 locations, <span class="font-semibold text-ink">145 were inaccessible</span> — no public
-				restroom at all, "customers only" signage, locked doors, or occupied for more than ten minutes.
-				That is the gap between a restroom appearing on a map and a person being able to use it.
+				Of the 262 locations, <span class="font-semibold text-ink">145 were inaccessible</span>: no
+				public restroom at all, "customers only" signage, locked doors, or occupied for more than
+				ten minutes. That is the gap between a restroom appearing on a map and a person being able
+				to use it.
 			</p>
 		</section>
 
@@ -89,15 +90,15 @@
 					<h3 class="text-[15px] font-bold text-ink">Verified accessibility</h3>
 					<p class="mt-1 text-[14px] leading-relaxed text-ink-muted">
 						Somebody physically went there and confirmed the restroom could be used. The
-						{data.summary.bySource.gsu ?? 117} GSU locations in Relief ATL all clear this bar — as of
-						the 2025 field visits.
+						{data.summary.bySource.gsu ?? 117} GSU locations in Relief ATL all clear this bar: as of the
+						2025 field visits.
 					</p>
 				</div>
 				<div class="rounded-card border border-line bg-surface p-4">
 					<h3 class="text-[15px] font-bold text-ink">Current availability</h3>
 					<p class="mt-1 text-[14px] leading-relaxed text-ink-muted">
 						Somebody confirmed recently that it is accessible right now. This is the only one that
-						helps when you urgently need a restroom — and it is the one that goes stale fastest.
+						helps when you urgently need a restroom: and it is the one that goes stale fastest.
 					</p>
 				</div>
 			</div>
@@ -113,7 +114,7 @@
 				anonymous community confirmations on top of the public datasets so you can see whether a
 				restroom is likely to be available <em>now</em>. Every confirmation is stored as its own
 				timestamped event in
-				<span class="font-semibold text-ink">Tiger Data</span> — nothing is ever overwritten, so each
+				<span class="font-semibold text-ink">Tiger Data</span>: nothing is ever overwritten, so each
 				location accumulates a real availability history:
 			</p>
 
@@ -128,7 +129,7 @@
 
 			<p class="mt-3 text-[15px] leading-relaxed text-ink-muted">
 				That history is what lets the app decide whether older information should still be trusted.
-				A 2025 audit is good evidence — right up until two people report a locked door in the last
+				A 2025 audit is good evidence: right up until two people report a locked door in the last
 				twenty minutes.
 			</p>
 		</section>
@@ -139,10 +140,10 @@
 				How access confidence works
 			</h2>
 			<p class="mt-3 text-[15px] leading-relaxed text-ink-muted">
-				Each restroom gets a 0–100 score answering one question: how confident are we that someone
-				can use this restroom right now? It is a deterministic calculation — no machine learning, no
-				guessing — and you can open any restroom's detail view to see the exact factors that
-				produced its number.
+				Each restroom gets a 0-100 score answering one question: how confident are we that someone
+				can use this restroom right now? It is a deterministic calculation: no machine learning, no
+				guessing: and you can open any restroom's detail view to see the exact factors that produced
+				its number.
 			</p>
 			<ul class="mt-3 space-y-1.5">
 				{#each STATUS_ORDER as status (status)}
@@ -155,13 +156,13 @@
 							<span class="font-semibold text-ink">{STATUS_STYLE[status].longLabel}</span>
 							<span class="text-ink-muted">
 								{#if status === 'confirmed'}
-									— someone reported successfully using it within the last few hours.
+									: someone reported successfully using it within the last few hours.
 								{:else if status === 'likely'}
-									— physically audited as usable, but not confirmed lately.
+									: physically audited as usable, but not confirmed lately.
 								{:else if status === 'uncertain'}
-									— listed somewhere, never verified on the ground, or known to be restricted.
+									: listed somewhere, never verified on the ground, or known to be restricted.
 								{:else}
-									— recent reports say people could not get in. This overrides older evidence.
+									: recent reports say people could not get in. This overrides older evidence.
 								{/if}
 							</span>
 						</span>
@@ -189,7 +190,7 @@
 					</div>
 					<p class="mt-1 text-[14px] leading-relaxed text-ink-muted">
 						Locations where researchers found and used an accessible restroom between February and
-						April 2025. Each record keeps its original audit fields — access restrictions, ADA
+						April 2025. Each record keeps its original audit fields: access restrictions, ADA
 						stalls, soap, toilet paper, changing tables, posted hours and the auditors' own notes.
 					</p>
 				</div>
@@ -206,7 +207,7 @@
 							>amenity=toilets</code
 						>
 						across metro Atlanta. These extend coverage beyond the 15 studied areas, but nobody has physically
-						verified them — so they stay grey until a community report arrives. Where an OpenStreetMap
+						verified them: so they stay grey until a community report arrives. Where an OpenStreetMap
 						entry overlaps an audited location, the physical audit wins and the map listing is kept as
 						a cross-reference.
 					</p>
@@ -219,17 +220,23 @@
 			</p>
 		</section>
 
-		<!-- Honesty about seeded reports -->
-		<section class="mt-9 rounded-card border border-warn-line bg-warn-soft p-4">
-			<h2 class="inline-flex items-center gap-1.5 text-[13px] font-bold text-warn">
+		<!-- Where the reports come from -->
+		<section class="mt-9 rounded-card border border-line bg-surface p-4">
+			<h2 class="inline-flex items-center gap-1.5 text-[13px] font-bold text-ink">
 				<Database class="size-4" aria-hidden="true" />
-				About the community reports you see today
+				Where the community reports come from
 			</h2>
 			<p class="mt-1.5 text-[14px] leading-relaxed text-ink-muted">
-				Every restroom <em>location</em> in Relief ATL is real, imported from the public datasets above.
-				The community report history is currently demonstration data generated on top of those real locations,
-				and each seeded event is tagged as such in the database. Reports you submit are stored as genuine,
-				untagged events alongside them.
+				Every report in Relief ATL was submitted by a real person tapping
+				<strong class="text-ink">I used it</strong> or
+				<strong class="text-ink">Couldn't access</strong> after actually going there. There is no sample
+				data, no generated history and no placeholder confirmations anywhere in the app.
+			</p>
+			<p class="mt-2 text-[14px] leading-relaxed text-ink-muted">
+				That means a location starts out showing only what the public datasets can prove, and has to
+				earn a green pin from someone who was physically there. Early on you will see a lot of amber
+				and grey. That is the honest picture, and it is the point: a confirmation only means
+				something if it was never given away for free.
 			</p>
 		</section>
 
@@ -307,7 +314,7 @@
 				</div>
 			</dl>
 			<p class="mt-3 text-[13px] leading-relaxed text-ink-subtle">
-				No accounts, no sign-in, no tracking. Reports are anonymous — the app stores the restroom,
+				No accounts, no sign-in, no tracking. Reports are anonymous: the app stores the restroom,
 				the status and the timestamp, and nothing about you.
 			</p>
 		</section>

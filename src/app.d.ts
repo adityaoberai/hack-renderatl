@@ -12,7 +12,7 @@ declare global {
 
 export {};
 
-/** Vite's `?worker&url` import suffix — resolves to the bundled worker's URL. */
+/** Vite's `?worker&url` import suffix: resolves to the bundled worker's URL. */
 declare module '*?worker&url' {
 	const src: string;
 	export default src;

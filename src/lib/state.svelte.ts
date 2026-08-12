@@ -20,7 +20,7 @@ export interface Origin {
 	longitude: number;
 	/** What to call this place in the UI: "Your location" or a searched address. */
 	label: string;
-	/** True only for a real device fix — controls whether we draw the "you" dot. */
+	/** True only for a real device fix: controls whether we draw the "you" dot. */
 	isDeviceLocation: boolean;
 }
 
@@ -44,7 +44,7 @@ export class ReliefState {
 	filters = $state<Filters>({ ...EMPTY_FILTERS });
 	filtersOpen = $state(false);
 
-	/** Mobile only — desktop always shows both panes. */
+	/** Mobile only: desktop always shows both panes. */
 	mobileView = $state<'map' | 'list'>('list');
 
 	/** Confirmation toast after a report is stored. */
@@ -104,7 +104,7 @@ export class ReliefState {
 			const code = (error as GeolocationPositionError)?.code;
 			this.locationError =
 				code === 1
-					? 'Location permission was declined. Search an address instead — everything else still works.'
+					? 'Location permission was declined. Search an address instead: everything else still works.'
 					: 'Could not get a location fix. Showing central Atlanta instead.';
 			// Never dead-end: fall through to the map centred on downtown.
 			this.browseAtlanta();
@@ -184,8 +184,8 @@ export class ReliefState {
 		params.set('lat', String(center.latitude));
 		params.set('lon', String(center.longitude));
 		params.set('radius', '4000');
-		// Generous enough that low-ranked results — especially the ones reported
-		// unavailable — still reach the map. Silently dropping a red pin would hide
+		// Generous enough that low-ranked results: especially the ones reported
+		// unavailable: still reach the map. Silently dropping a red pin would hide
 		// exactly the information the user most needs.
 		params.set('limit', '150');
 		for (const [key, value] of Object.entries(this.filters)) {
@@ -304,7 +304,7 @@ export class ReliefState {
 			this.showToast(
 				status === 'accessible'
 					? "Thanks! You've helped the next person find a restroom."
-					: 'Thanks — that warning is live for everyone right now.',
+					: 'Thanks: that warning is live for everyone right now.',
 				status === 'accessible' ? 'ok' : 'bad'
 			);
 			return true;

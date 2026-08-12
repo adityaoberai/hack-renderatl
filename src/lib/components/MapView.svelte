@@ -2,7 +2,7 @@
 	import { onMount } from 'svelte';
 	import type { Map as MapLibreMap, Marker } from 'maplibre-gl';
 	// MapLibre derives its worker URL at runtime (`new URL(\`./${name}\`, import.meta.url)`),
-	// which no bundler can follow — so the worker chunk is never emitted and the map
+	// which no bundler can follow: so the worker chunk is never emitted and the map
 	// silently never finishes loading. Bundle it explicitly and tell MapLibre where it is.
 	import maplibreWorkerUrl from 'maplibre-gl/dist/maplibre-gl-worker.mjs?worker&url';
 	import { STATUS_STYLE } from '$lib/status';
@@ -55,7 +55,7 @@
 	let originMarker: Marker | null = null;
 
 	const GLYPH: Record<AvailabilityStatus, string> = {
-		// A shape as well as a colour — status must survive colour-blindness and glare.
+		// A shape as well as a colour: status must survive colour-blindness and glare.
 		confirmed:
 			'<svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><path d="M20 6 9 17l-5-5"/></svg>',
 		unavailable:
@@ -71,7 +71,7 @@
 		element.className = 'relief-pin';
 		element.setAttribute(
 			'aria-label',
-			`${entry.restroom.name} — ${entry.confidenceScore}% access confidence`
+			`${entry.restroom.name}: ${entry.confidenceScore}% access confidence`
 		);
 		element.addEventListener('click', (event) => {
 			event.stopPropagation();
@@ -200,8 +200,8 @@
 				syncOrigin();
 			});
 
-			// If the basemap never comes up — no WebGL, blocked CDN, dead conference
-			// wifi — stop covering the screen with a spinner. The ranked list is the
+			// If the basemap never comes up: no WebGL, blocked CDN, dead conference
+			// wifi: stop covering the screen with a spinner. The ranked list is the
 			// product; the map is the nice-to-have.
 			loadWatchdog = setTimeout(() => {
 				if (!ready) failed = true;
@@ -270,7 +270,7 @@
 			>
 				<p class="text-sm font-semibold text-ink">The map couldn't load.</p>
 				<p class="mt-1 text-[13px] text-ink-muted">
-					Your ranked results are still listed — they don't depend on the map.
+					Your ranked results are still listed: they don't depend on the map.
 				</p>
 			</div>
 		</div>

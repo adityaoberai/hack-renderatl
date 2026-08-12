@@ -22,10 +22,10 @@ The product keeps three ideas strictly separate:
 
 ## The data
 
-### Primary source — GSU / OSF public dataset
+### Primary source: GSU / OSF public dataset
 
 > _Public bathrooms as public goods: Assessing availability and accessibility in
-> Atlanta, Georgia_ — PLOS Water, 24 June 2026
+> Atlanta, Georgia_: PLOS Water, 24 June 2026
 > [Paper](https://journals.plos.org/water/article?id=10.1371/journal.pwat.0000574) ·
 > [Data](https://osf.io/fm9by)
 
@@ -37,7 +37,7 @@ restroom audits at those 117 locations**.
 
 `scripts/import-gsu.mjs` groups the audits by GPS coordinate into one record per
 physical location and maps the original columns into the app schema. Variable
-meanings were verified against the published paper — for example `Permiss`
+meanings were verified against the published paper: for example `Permiss`
 (staff permission required) yields 91 of 117 locations needing none, reproducing
 Table 1 of the paper exactly. Every record keeps `source: "gsu"`, its audit date,
 and the complete original rows inside `source_metadata`.
@@ -47,7 +47,7 @@ coordinate (Nominatim, then an Overpass second pass matched on facility type).
 111 of 117 locations resolve to a real building name; the remaining six fall back
 to an honest `"<facility type> · <study area>"` label rather than a guess.
 
-### Secondary source — OpenStreetMap
+### Secondary source: OpenStreetMap
 
 `scripts/fetch-osm.mjs` pulls `amenity=toilets` across metro Atlanta via Overpass
 (**81 OSM-only locations** after deduplication). These extend coverage beyond the
@@ -74,13 +74,13 @@ Restroom availability is a time-series problem:
 ```
 
 Every anonymous confirmation is stored as **an immutable, timestamped event** in a
-Tiger Data hypertable. Nothing is ever overwritten — there is no
+Tiger Data hypertable. Nothing is ever overwritten: there is no
 `current_status` column. The current picture is always _derived_ from recent
 events, which is what makes "recent reality overrides stale assumptions" possible.
 
-- `restrooms` — slow-moving facts from public datasets
-- `reports` — the hypertable, partitioned on `created_at`, append-only
-- `reports_hourly` — a continuous aggregate powering the 24-hour timeline and the
+- `restrooms`: slow-moving facts from public datasets
+- `reports`: the hypertable, partitioned on `created_at`, append-only
+- `reports_hourly`: a continuous aggregate powering the 24-hour timeline and the
   reliability metric
 
 See [`src/lib/server/schema.sql`](src/lib/server/schema.sql).
@@ -89,14 +89,14 @@ See [`src/lib/server/schema.sql`](src/lib/server/schema.sql).
 
 ## Access Confidence Score
 
-`calculateAccessConfidence(restroom, reports)` returns a 0–100 score answering one
+`calculateAccessConfidence(restroom, reports)` returns a 0-100 score answering one
 question: _how confident are we that someone can use this restroom right now?_
-It is fully deterministic — no LLM, no randomness — and the detail view shows the
+It is fully deterministic: no LLM, no randomness: and the detail view shows the
 exact factor breakdown that produced the number.
 
 Two layers:
 
-1. **Static baseline** from public data — physical audit, officially-public status,
+1. **Static baseline** from public data: physical audit, officially-public status,
    purchase/permission/gate restrictions, parsed opening hours, and decay for the
    age of the source. Capped at 68, so a dataset alone can never earn a green pin.
 2. **Evidence layer** from timestamped reports. Its weight saturates fast, so one
@@ -119,6 +119,12 @@ Statuses map directly onto the map colours:
 Ranking blends confidence with walking time, so a 5-minute walk at 96% outranks a
 2-minute walk at 31%.
 
+**There is no seeded or sample report data anywhere in this project.** Every
+report is one a real person submitted in the app. A fresh deployment therefore
+starts with zero community evidence: locations show only what the public
+datasets can prove (amber for audited-but-unconfirmed, grey for OSM listings),
+and green has to be earned by somebody who was actually there.
+
 ---
 
 ## Running it
@@ -128,16 +134,16 @@ npm install
 npm run dev
 ```
 
-That is enough — the app ships with the imported datasets committed under
+That is enough: the app ships with the imported datasets committed under
 `src/lib/server/data/`, and with no `DATABASE_URL` it serves them from an
-in-memory store with a generated report history. **The demo works with no
+in-memory store. **The demo works with no
 database and no network.**
 
 ### With Tiger Data (the real thing)
 
 ```bash
 cp .env.example .env      # add your Tiger Data connection string
-npm run db:bootstrap      # setup + import + seed
+npm run db:bootstrap      # setup + import
 npm run db:status         # confirm the hypertable and event counts
 npm run dev
 ```
@@ -154,15 +160,14 @@ npm run dev
 `db:status` should report `Tiger Data hypertable on "reports": yes`, and the
 About page's System section flips from _Local demo store_ to _Tiger Data_.
 
-| script              | does                                                                    |
-| ------------------- | ----------------------------------------------------------------------- |
-| `npm run db:setup`  | tables, `reports` hypertable, `reports_hourly` continuous aggregate     |
-| `npm run db:import` | upsert the imported public datasets (idempotent)                        |
-| `npm run db:seed`   | replace the seeded demo history relative to now (real reports are kept) |
-| `npm run db:status` | restroom counts by source, event counts, hypertable check               |
+| script              | does                                                                |
+| ------------------- | ------------------------------------------------------------------- |
+| `npm run db:setup`  | tables, `reports` hypertable, `reports_hourly` continuous aggregate |
+| `npm run db:import` | upsert the imported public datasets (idempotent)                    |
+| `npm run db:status` | restroom counts by source, event counts, hypertable check           |
 
 The app detects Tiger Data automatically. If a query fails at runtime it logs and
-falls back to the bundled public data rather than erroring — a database hiccup
+falls back to the bundled public data rather than erroring: a database hiccup
 mid-demo degrades instead of breaking.
 
 ### Refreshing the source data
@@ -180,7 +185,7 @@ Overpass at runtime.
 
 Built with `@sveltejs/adapter-node`.
 
-**App Platform** — point it at the repo; it detects Node and runs `npm run build`.
+**App Platform**: point it at the repo; it detects Node and runs `npm run build`.
 Set the run command to `node build` and add `DATABASE_URL` as an encrypted env var.
 The server honours `PORT`.
 
@@ -197,7 +202,7 @@ DATABASE_URL=… PORT=3000 node build
 
 There is none, by design. No sign-up, no sign-in, no profiles, no sessions, no
 OAuth, no tracking. Submitting a report stores the restroom id, the status, and
-the timestamp — nothing about the person.
+the timestamp: nothing about the person.
 
 ---
 
@@ -208,7 +213,7 @@ scripts/
   import-gsu.mjs         OSF xlsx → normalised locations (+ reverse geocoding)
   enrich-names.mjs       Overpass second pass for unnamed audit coordinates
   fetch-osm.mjs          amenity=toilets across metro Atlanta
-  db.mjs                 setup / import / seed / status / reset
+  db.mjs                 setup / import / status / reset
   lib/normalize-gsu.mjs  the GSU column mapping, with the decoded variable meanings
 
 src/lib/
@@ -224,7 +229,6 @@ src/lib/
     store.ts             storage contract shared by both implementations
     pg-store.ts          Tiger Data
     memory-store.ts      no-database fallback
-    seed.ts              deterministic demo report history
     restrooms.ts         service layer: nearby search, detail, report submission
     data/                the imported public datasets (committed)
 
@@ -236,13 +240,3 @@ src/routes/
   api/reports            anonymous report submission
   api/geocode            Nominatim proxy, bounded to Atlanta
 ```
-
----
-
-## A note on the community reports
-
-Every restroom **location** in Relief ATL is real, imported from the public
-datasets above. The community report **history** is currently demonstration data
-generated deterministically on top of those real locations — each seeded event is
-tagged `metadata.seeded = true` in the database, and the About page says so.
-Reports you submit are stored as genuine, untagged events alongside them.

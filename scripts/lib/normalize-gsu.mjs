@@ -2,7 +2,7 @@
  * Normalises the GSU / OSF "Full dataset.xlsx" into the Relief ATL schema.
  *
  * The published file contains 207 individual restroom audits at 117 distinct
- * locations — these are the locations where researchers found an accessible
+ * locations: these are the locations where researchers found an accessible
  * restroom. (The study screened 262 candidate locations in total; the other 145
  * had no usable restroom and therefore have no audit rows.)
  *
@@ -10,13 +10,13 @@
  * record per physical location, keeping every original row in `source_metadata`.
  *
  * Variable meanings were verified against the published paper:
- *   Permiss  — staff permission needed (91/117 locations = 77.8% need none,
+ *   Permiss: staff permission needed (91/117 locations = 77.8% need none,
  *              which reproduces Table 1 of the paper exactly)
- *   Code     — follow-up asked only when Permiss = Yes: is it a code/key lock?
- *   Access   — entry via a gate, turnstile or security checkpoint
- *   Pref     — auditor judged access was discretionary / they may have been refused
- *   Hrs      — open 24 hours a day, 7 days a week?  (Hrs_desc holds posted hours)
- *   Fac_pubpriv — publicly funded/managed facility vs. private
+ *   Code: follow-up asked only when Permiss = Yes: is it a code/key lock?
+ *   Access: entry via a gate, turnstile or security checkpoint
+ *   Pref: auditor judged access was discretionary / they may have been refused
+ *   Hrs: open 24 hours a day, 7 days a week?  (Hrs_desc holds posted hours)
+ *   Fac_pubpriv: publicly funded/managed facility vs. private
  */
 
 import { createHash } from 'node:crypto';
@@ -135,7 +135,7 @@ function restroomTypes(rows) {
 		mens: codes.has('TypeM'),
 		/** Explicitly signed as gender-neutral. */
 		genderNeutral: codes.has('TypeGN'),
-		/** Family room or simply unlabeled — usable by anyone in practice. */
+		/** Family room or simply unlabeled: usable by anyone in practice. */
 		familyOrUnlabeled: codes.has('TypeN')
 	};
 }
@@ -250,7 +250,7 @@ export function normalizeLocation(gpsKey, rows, names = {}) {
 		lastSourceVerifiedAt: auditDate,
 
 		sourceMetadata: {
-			dataset: 'GSU / OSF public bathroom audit (Atlanta, Feb–Apr 2025)',
+			dataset: 'GSU / OSF public bathroom audit (Atlanta, Feb-Apr 2025)',
 			osfUrl: OSF_URL,
 			paperUrl: PAPER_URL,
 			studyArea,

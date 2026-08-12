@@ -9,7 +9,7 @@
  * "no recent verification" until a real community report arrives.
  *
  * Where an OSM toilet sits on top of a GSU-audited location we keep the GSU
- * record — a physical audit beats a map listing — and cross-reference the OSM
+ * record: a physical audit beats a map listing: and cross-reference the OSM
  * id inside the GSU record's provenance rather than throwing it away.
  *
  * Output: src/lib/server/data/osm-restrooms.json
@@ -178,7 +178,7 @@ out center tags;`;
 	try {
 		gsu = JSON.parse(fs.readFileSync(GSU_PATH, 'utf8'));
 	} catch {
-		console.warn('No GSU dataset found — skipping cross-source dedupe.');
+		console.warn('No GSU dataset found: skipping cross-source dedupe.');
 	}
 
 	const kept = [];

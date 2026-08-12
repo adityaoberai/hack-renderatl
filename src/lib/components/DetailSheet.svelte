@@ -87,7 +87,7 @@
 		thanksMessage =
 			status === 'accessible'
 				? "Thanks! You've helped the next person find a restroom."
-				: 'Thanks — everyone nearby now sees that warning.';
+				: 'Thanks! Everyone nearby now sees that warning.';
 		mode = 'thanks';
 	}
 </script>
@@ -198,9 +198,6 @@
 					</button>
 				{:else}
 					<h3 class="text-sm font-bold text-ink">Was this information accurate?</h3>
-					<p class="mt-0.5 text-[12.5px] text-ink-muted">
-						Anonymous. No account, no sign-in — it takes one tap.
-					</p>
 					<div class="mt-2.5 grid grid-cols-2 gap-2">
 						<button
 							type="button"
@@ -364,9 +361,19 @@
 					</p>
 				{/if}
 
-				<div class="mt-3">
-					<Timeline buckets={detail.timeline} />
-				</div>
+				{#if detail.recentReports.length}
+					<div class="mt-3">
+						<Timeline buckets={detail.timeline} />
+					</div>
+				{:else}
+					<p class="mt-1.5 text-[13px] leading-relaxed text-ink-muted">
+						Nobody has reported on this restroom yet, so everything above comes from the original
+						public data. Relief ATL never invents confirmations: if you go, tap
+						<strong class="text-ink">I used it</strong> or
+						<strong class="text-ink">Couldn't access</strong> and you will be the first person to tell
+						the next one what to expect.
+					</p>
+				{/if}
 
 				{#if detail.recentReports.length}
 					<ol class="mt-3 space-y-1 border-t border-line pt-2.5">
@@ -384,7 +391,7 @@
 						{/each}
 					</ol>
 					<p class="mt-2 text-[11.5px] leading-snug text-ink-subtle">
-						Every confirmation is stored as its own timestamped event — nothing is overwritten, so
+						Every confirmation is stored as its own timestamped event: nothing is overwritten, so
 						this location keeps its full history.
 					</p>
 				{/if}

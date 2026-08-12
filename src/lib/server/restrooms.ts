@@ -1,5 +1,5 @@
 /**
- * Service layer — the only place the app reasons about restrooms.
+ * Service layer: the only place the app reasons about restrooms.
  *
  * Picks a store (Tiger Data when configured, in-memory otherwise), pulls the
  * recent event history for the candidate set, runs the confidence engine, and
@@ -125,7 +125,7 @@ export async function findNearby(query: NearbyQuery = {}): Promise<NearbyRestroo
 
 		let restrooms = await store.listRestrooms(bbox);
 
-		// Nothing within the radius (user is outside the covered areas) — widen to
+		// Nothing within the radius (user is outside the covered areas): widen to
 		// everything we have rather than showing an empty map.
 		if (!restrooms.length) restrooms = await store.listRestrooms();
 

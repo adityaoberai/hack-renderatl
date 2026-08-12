@@ -2,8 +2,8 @@
  * In-memory fallback store.
  *
  * Tiger Data is the system of record. This exists so that a missing
- * `DATABASE_URL` — or conference wifi that eats the database connection two
- * minutes before the demo — degrades into a fully working app instead of an
+ * `DATABASE_URL`: or conference wifi that eats the database connection two
+ * minutes before the demo: degrades into a fully working app instead of an
  * error page. It is backed by exactly the same imported public datasets and
  * implements exactly the same contract, so nothing above it can tell the
  * difference.
@@ -15,7 +15,6 @@
 import type { Report, Restroom, SourceId, TimelineBucket } from '../types.ts';
 import gsuData from './data/gsu-restrooms.json';
 import osmData from './data/osm-restrooms.json';
-import { generateSeedReportRows } from './seed.ts';
 import {
 	bucketHourly,
 	groupReports,
@@ -26,35 +25,21 @@ import {
 	type StoreSummary
 } from './store.ts';
 
-const SEED_REFRESH_MS = 10 * 60 * 1000;
-
 const RESTROOMS: Restroom[] = [...(gsuData as Restroom[]), ...(osmData as Restroom[])];
 
 export class MemoryStore implements RestroomStore {
 	readonly mode = 'memory' as const;
 
-	private userReports: Report[] = [];
-	private seed: { generatedAt: number; reports: Report[] } | null = null;
-	private nextId = 1_000_000;
+	private reports: Report[] = [];
+	private nextId = 1;
 
 	/**
-	 * Seed reports are regenerated when they go stale so that "confirmed 18
-	 * minutes ago" stays true however long the server has been up. Real
-	 * submissions are never regenerated.
+	 * Newest first. Every row here was submitted by a real person tapping a
+	 * button in the app. There is no generated history: a location shows only
+	 * what the public datasets can prove until somebody actually confirms it.
 	 */
-	private seedReports(): Report[] {
-		const now = Date.now();
-		if (!this.seed || now - this.seed.generatedAt > SEED_REFRESH_MS) {
-			this.seed = { generatedAt: now, reports: generateSeedReportRows(RESTROOMS, new Date(now)) };
-		}
-		return this.seed.reports;
-	}
-
-	/** Newest first. */
 	private allReports(): Report[] {
-		return [...this.seedReports(), ...this.userReports].sort(
-			(a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt)
-		);
+		return [...this.reports].sort((a, b) => Date.parse(b.createdAt) - Date.parse(a.createdAt));
 	}
 
 	async listRestrooms(bbox?: BBox): Promise<Restroom[]> {
@@ -88,7 +73,7 @@ export class MemoryStore implements RestroomStore {
 			metadata: input.metadata ?? null
 		};
 		// Append-only, exactly like the hypertable it stands in for.
-		this.userReports.push(report);
+		this.reports.push(report);
 		return report;
 	}
 

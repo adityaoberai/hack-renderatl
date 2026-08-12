@@ -1,5 +1,5 @@
 /**
- * Access Confidence Score — the heart of Relief ATL.
+ * Access Confidence Score: the heart of Relief ATL.
  *
  * Answers one question: *how confident are we that someone can walk up to this
  * restroom right now and actually use it?*
@@ -8,7 +8,7 @@
  *
  *   1. A STATIC baseline from public data (GSU physical audit, OSM listing,
  *      known restrictions, opening hours). This decays with age and is
- *      deliberately capped — static data can never earn a green pin.
+ *      deliberately capped: static data can never earn a green pin.
  *
  *   2. An EVIDENCE layer built from timestamped community reports. Recent
  *      events overwhelm the baseline: the weight of the evidence layer
@@ -69,9 +69,9 @@ function freshnessCeiling(ageMs: number): number {
 	if (ageMs < 30 * MINUTE) return 99; // very strong
 	if (ageMs < 3 * HOUR) return 93; // strong
 	if (ageMs < 6 * HOUR) return 86;
-	if (ageMs < 12 * HOUR) return 78; // today — moderate
+	if (ageMs < 12 * HOUR) return 78; // today: moderate
 	if (ageMs < DAY) return 71;
-	if (ageMs < 3 * DAY) return 64; // several days — weak
+	if (ageMs < 3 * DAY) return 64; // several days: weak
 	if (ageMs < 14 * DAY) return 58;
 	return 52; // historical evidence only
 }
@@ -95,7 +95,7 @@ interface StaticBaseline {
 }
 
 /**
- * The "what public data alone can tell us" score. Capped at 68 — a dataset
+ * The "what public data alone can tell us" score. Capped at 68: a dataset
  * saying a restroom exists is never enough to promise it is usable now.
  */
 function staticBaseline(restroom: Restroom, now: Date): StaticBaseline {
@@ -122,7 +122,7 @@ function staticBaseline(restroom: Restroom, now: Date): StaticBaseline {
 	else if (restroom.purchaseRequired === false) add('No purchase required', 4);
 
 	if (restroom.permissionRequired === true) add('Staff permission needed to enter', -9);
-	if (restroom.codeOrKeyRequired === true) add('Locked — needs a code or key', -8);
+	if (restroom.codeOrKeyRequired === true) add('Locked: needs a code or key', -8);
 	if (restroom.gateOrTurnstile === true) add('Behind a gate or turnstile', -6);
 
 	// Opening hours are only a factor when we can actually parse them.
@@ -165,7 +165,7 @@ export function calculateAccessConfidence(
 	let freshestPositive: Report | null = null;
 	let positiveCount = 0;
 	let negativeCount = 0;
-	/** Negatives inside the corroboration window — what "3 people just said" means. */
+	/** Negatives inside the corroboration window: what "3 people just said" means. */
 	let corroboratingNegatives = 0;
 	const CORROBORATION_WINDOW = 3 * HOUR;
 
@@ -211,7 +211,7 @@ export function calculateAccessConfidence(
 		score = blended;
 
 		// Cap by recency. A pile of week-old successes cannot make us confident
-		// about right now — but it must never drag a location below what the
+		// about right now: but it must never drag a location below what the
 		// static public data alone already justified.
 		if (lastConfirmedAt) {
 			const age = now.getTime() - Date.parse(lastConfirmedAt);
@@ -222,7 +222,7 @@ export function calculateAccessConfidence(
 					factors.push({
 						label: 'Last confirmation is ageing',
 						delta: Math.round(capped - score),
-						detail: `Capped at ${ceiling}% — nobody has reported success since ${relative(lastConfirmedAt, now)}`
+						detail: `Capped at ${ceiling}%: nobody has reported success since ${relative(lastConfirmedAt, now)}`
 					});
 					score = capped;
 				}
@@ -259,7 +259,7 @@ function describeEvidence(pc: number, nc: number, p: number, n: number): string 
 	if (nc) bits.push(`${nc} ${nc === 1 ? 'problem report' : 'problem reports'}`);
 	const lean =
 		p > n ? 'weighted toward recent success' : n > p ? 'dominated by recent problems' : 'mixed';
-	return `${bits.join(' · ')} — ${lean}`;
+	return `${bits.join(' · ')}: ${lean}`;
 }
 
 function deriveStatus(input: {
@@ -272,7 +272,7 @@ function deriveStatus(input: {
 }): AvailabilityStatus {
 	const { score, positive, negative, lastConfirmedAt, now } = input;
 
-	// Recent negative evidence wins outright — this is the whole point of the
+	// Recent negative evidence wins outright: this is the whole point of the
 	// product. Two "locked" reports in the last 20 minutes beat a 2025 audit.
 	if (negative >= 0.5 && negative > positive) return 'unavailable';
 
@@ -325,7 +325,7 @@ const NEGATIVE_REASON: Record<string, string> = {
 	other: 'Problem reported'
 };
 
-/** Compact relative time — "18 min ago", "2 hours ago", "Apr 2025". */
+/** Compact relative time: "18 min ago", "2 hours ago", "Apr 2025". */
 export function relative(iso: string, now: Date = new Date()): string {
 	const then = Date.parse(iso);
 	if (Number.isNaN(then)) return 'unknown';

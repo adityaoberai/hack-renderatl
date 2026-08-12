@@ -8,7 +8,7 @@ const num = (value: string | null): number | undefined => {
 	return Number.isFinite(parsed) ? parsed : undefined;
 };
 
-/** GET /api/restrooms/:id?lat=&lon=  — full detail plus recent event history. */
+/** GET /api/restrooms/:id?lat=&lon=: full detail plus recent event history. */
 export const GET: RequestHandler = async ({ params, url }) => {
 	const latitude = num(url.searchParams.get('lat'));
 	const longitude = num(url.searchParams.get('lon'));

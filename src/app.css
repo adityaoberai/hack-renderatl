@@ -3,7 +3,7 @@
 /* ---------------------------------------------------------------------------
    Relief ATL design tokens.
    Civic, paper-like, high contrast. No gradients, no glassmorphism.
-   Status colour is the single loudest thing on screen — it is the product.
+   Status colour is the single loudest thing on screen: it is the product.
 --------------------------------------------------------------------------- */
 @theme {
 	--font-sans:

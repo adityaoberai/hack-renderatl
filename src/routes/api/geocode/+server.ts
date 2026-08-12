@@ -3,7 +3,7 @@ import { ATLANTA_BBOX } from '$lib/geo';
 import type { RequestHandler } from './$types';
 
 /**
- * GET /api/geocode?q=  — "Search an area in Atlanta".
+ * GET /api/geocode?q=: "Search an area in Atlanta".
  *
  * Proxied server-side so we can send a proper User-Agent (Nominatim's usage
  * policy) and keep results bounded to metro Atlanta. Failures return an empty

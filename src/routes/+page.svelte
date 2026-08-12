@@ -110,7 +110,7 @@
 </script>
 
 <svelte:head>
-	<title>Relief ATL — Find a restroom you can actually use</title>
+	<title>Relief ATL: Find a restroom you can actually use</title>
 </svelte:head>
 
 <svelte:window onkeydown={onKeydown} />
@@ -193,7 +193,7 @@
 				</button>
 
 				<p class="mt-8 border-t border-line pt-5 text-[13px] leading-relaxed text-ink-muted">
-					Built using public Atlanta restroom research and recent community confirmations —
+					Built using public Atlanta restroom research and recent community confirmations :
 					<span class="font-semibold text-ink">{data.summary.gsu} locations</span>
 					physically audited by Georgia State University researchers, plus
 					<span class="font-semibold text-ink">{data.summary.osm}</span> from OpenStreetMap.
@@ -340,7 +340,7 @@
 
 				<footer class="shrink-0 border-t border-line bg-surface px-4 py-2.5">
 					<p class="text-[11.5px] leading-snug text-ink-subtle">
-						Powered by public Atlanta restroom data — GSU restroom research + OpenStreetMap +
+						Powered by public Atlanta restroom data: GSU restroom research, OpenStreetMap, and
 						anonymous community reports.
 					</p>
 				</footer>
@@ -551,7 +551,7 @@
 			Mobile map / list affordance. It rides just above the collapsed sheet
 			rather than pinning to the bottom of the screen, where it would sit on
 			top of the first peeking result card. Once the sheet is open the list is
-			already on screen, so the pill gets out of the way — the drag handle and
+			already on screen, so the pill gets out of the way: the drag handle and
 			the sheet header both collapse it again.
 		-->
 		{#if !sheetIsOpen}

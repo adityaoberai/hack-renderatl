@@ -52,7 +52,7 @@ const DAY_INDEX: Record<string, number> = {
 const ALL_DAYS = [0, 1, 2, 3, 4, 5, 6];
 
 function parseClock(raw: string): number | null {
-	const m = /^\s*(\d{1,2})(?::(\d{2}))?\s*(am|pm|a\.m\.|p\.m\.)?\s*$/i.exec(raw);
+	const m = /^\s*(\d{1,2})(?:(\d{2}))?\s*(am|pm|a\.m\.|p\.m\.)?\s*$/i.exec(raw);
 	if (!m) return null;
 	let hour = Number(m[1]);
 	const minute = m[2] ? Number(m[2]) : 0;
@@ -77,7 +77,7 @@ function parseDays(raw: string): number[] | null {
 	for (const chunk of text.split(/[,/&]|\band\b/)) {
 		const part = chunk.trim().replace(/\.$/, '');
 		if (!part) continue;
-		const range = /^([a-z]+)\s*(?:-|–|—|through|to)\s*([a-z]+)$/.exec(part);
+		const range = /^([a-z]+)\s*(?:-|-|: |through|to)\s*([a-z]+)$/.exec(part);
 		if (range) {
 			const from = DAY_INDEX[range[1]];
 			const to = DAY_INDEX[range[2]];
@@ -111,7 +111,7 @@ export function parseOpeningHours(text: string | null | undefined): HourSpan[] |
 
 		// "<days> <start>-<end>"  (OSM style) or "<start>-<end> <days>" (GSU style)
 		const timeRange =
-			/(\d{1,2}(?::\d{2})?\s*(?:am|pm|a\.m\.|p\.m\.)?)\s*(?:-|–|—|to)\s*(\d{1,2}(?::\d{2})?\s*(?:am|pm|a\.m\.|p\.m\.)?)/i.exec(
+			/(\d{1,2}(?:\d{2})?\s*(?:am|pm|a\.m\.|p\.m\.)?)\s*(?:-|-|: |to)\s*(\d{1,2}(?:\d{2})?\s*(?:am|pm|a\.m\.|p\.m\.)?)/i.exec(
 				part
 			);
 		if (!timeRange) continue;

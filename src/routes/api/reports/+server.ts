@@ -4,7 +4,7 @@ import type { ReportStatus } from '$lib/types';
 import type { RequestHandler } from './$types';
 
 /**
- * POST /api/reports  — anonymous community confirmation.
+ * POST /api/reports: anonymous community confirmation.
  *
  * No account, no session, no identity. The body is just:
  *   { restroomId, status, note? }

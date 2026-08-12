@@ -6,7 +6,7 @@
  *
  * When no connection string is configured the app falls back to an in-memory
  * store built from the same imported public datasets. That keeps a hackathon
- * demo alive on a flaky conference network — but Tiger Data is the system of
+ * demo alive on a flaky conference network: but Tiger Data is the system of
  * record whenever it is reachable.
  */
 

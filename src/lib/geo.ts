@@ -1,4 +1,4 @@
-/** Geographic helpers. Straight-line maths only — no routing engine in the MVP. */
+/** Geographic helpers. Straight-line maths only: no routing engine in the MVP. */
 
 const EARTH_RADIUS_M = 6_371_000;
 
@@ -29,7 +29,7 @@ export function haversineMeters(
 /**
  * Walking minutes from straight-line distance.
  * 1.33 m/s ≈ 80 m/min, times a 1.3 detour factor for real street networks.
- * Deliberately approximate — the MVP spends its complexity budget on availability.
+ * Deliberately approximate: the MVP spends its complexity budget on availability.
  */
 export function walkingMinutes(meters: number): number {
 	return Math.max(1, Math.round((meters * 1.3) / 80));
@@ -49,7 +49,7 @@ export function degreeBox(latitude: number, radiusMeters: number) {
 }
 
 /**
- * Ranking blend. Distance alone is the wrong answer — a restroom two minutes
+ * Ranking blend. Distance alone is the wrong answer: a restroom two minutes
  * away that you cannot get into is worth less than one five minutes away that
  * you can. Confidence leads; walking time is the tie-breaker.
  */

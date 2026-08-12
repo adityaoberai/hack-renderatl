@@ -2,9 +2,9 @@
  * Shared domain types for Relief ATL.
  *
  * The product hinges on keeping three ideas separate:
- *   existence            — a dataset says a restroom is here
- *   verified accessibility — somebody physically checked it could be used
- *   current availability   — somebody confirmed it recently
+ *   existence: a dataset says a restroom is here
+ *   verified accessibility: somebody physically checked it could be used
+ *   current availability: somebody confirmed it recently
  */
 
 /** Where a restroom record originally came from. Never conflate these. */
@@ -64,7 +64,7 @@ export interface Report {
 	metadata: Record<string, unknown> | null;
 }
 
-/** Output of `calculateAccessConfidence` — deterministic, explainable, no LLM. */
+/** Output of `calculateAccessConfidence`: deterministic, explainable, no LLM. */
 export interface ConfidenceResult {
 	score: number;
 	status: AvailabilityStatus;

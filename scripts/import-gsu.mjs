@@ -7,7 +7,7 @@
  * Source: https://osf.io/fm9by  (archive committed under static/)
  * Paper:  https://journals.plos.org/water/article?id=10.1371/journal.pwat.0000574
  *
- * Output: src/lib/server/data/gsu-restrooms.json — committed to the repo so the
+ * Output: src/lib/server/data/gsu-restrooms.json: committed to the repo so the
  * app never touches OSF at runtime, and the demo works with no network at all.
  */
 
