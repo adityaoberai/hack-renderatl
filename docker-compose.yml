@@ -1,0 +1,29 @@
+# Local Tiger Data (TimescaleDB) for development.
+#
+#   docker compose up -d
+#   echo 'DATABASE_URL=postgres://postgres:relief@127.0.0.1:5433/tsdb?sslmode=disable' > .env
+#   npm run db:bootstrap
+#   npm run dev
+#
+# Production points DATABASE_URL at a hosted Tiger Data service instead; nothing
+# else changes.
+
+services:
+  tigerdata:
+    image: timescale/timescaledb:latest-pg17
+    container_name: relief-tsdb
+    ports:
+      - '5433:5432'
+    environment:
+      POSTGRES_PASSWORD: relief
+      POSTGRES_DB: tsdb
+    volumes:
+      - relief-tsdb-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ['CMD-SHELL', 'pg_isready -U postgres -d tsdb']
+      interval: 5s
+      timeout: 5s
+      retries: 12
+
+volumes:
+  relief-tsdb-data:
