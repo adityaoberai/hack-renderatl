@@ -12,6 +12,7 @@
 	} from '$lib/display';
 	import { formatDistance } from '$lib/geo';
 	import type { Coordinates, NearbyRestroom, ReportStatus, RestroomFilters } from '$lib/types';
+	import { safeExternalUrl } from '$lib/url';
 	import type { PageData } from './$types';
 	import { untrack } from 'svelte';
 	import { SvelteURLSearchParams } from 'svelte/reactivity';
@@ -584,13 +585,17 @@
 					<strong>{sourceName(selected.restroom, true)}</strong>
 					{#if formatAuditDate(selected.restroom.lastSourceVerifiedAt)}
 						<p>
-							Last source verification:
+							{selected.restroom.source === 'gsu'
+								? 'Last source verification:'
+								: 'Source last updated:'}
 							{formatAuditDate(selected.restroom.lastSourceVerifiedAt)}
 						</p>
 					{/if}
-					{#if selected.restroom.sourceUrl}
-						<a href={selected.restroom.sourceUrl} target="_blank" rel="external noreferrer"
-							>View public source ↗</a
+					{#if safeExternalUrl(selected.restroom.sourceUrl)}
+						<a
+							href={safeExternalUrl(selected.restroom.sourceUrl) ?? undefined}
+							target="_blank"
+							rel="external noreferrer">View public source ↗</a
 						>
 					{/if}
 				</section>

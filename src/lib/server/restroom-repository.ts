@@ -107,9 +107,7 @@ function initializeDemoReports(restrooms: Restroom[]): void {
 	const pick = (pattern: RegExp, fallbackIndex: number): Restroom | undefined => {
 		const fallback = accessible[fallbackIndex];
 		const restroom =
-			accessible.find(
-				(candidate) => pattern.test(candidate.name) && !selected.has(candidate.id)
-			) ??
+			accessible.find((candidate) => pattern.test(candidate.name) && !selected.has(candidate.id)) ??
 			(fallback && !selected.has(fallback.id) ? fallback : undefined) ??
 			accessible.find((candidate) => !selected.has(candidate.id));
 		if (restroom) selected.add(restroom.id);
@@ -175,8 +173,7 @@ function demoRestrooms(): RestroomWithReports[] {
 	return restrooms.map((restroom) => ({
 		restroom,
 		reports: [...(demoReports.get(restroom.id) ?? [])].sort(
-			(left, right) =>
-				new Date(right.createdAt).getTime() - new Date(left.createdAt).getTime()
+			(left, right) => new Date(right.createdAt).getTime() - new Date(left.createdAt).getTime()
 		)
 	}));
 }

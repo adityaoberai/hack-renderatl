@@ -78,6 +78,72 @@ function sourceAgeScore(restroom: Restroom, now: Date): number {
 	return 0;
 }
 
+function openingHoursSignal(
+	openingHours: string | null,
+	now: Date
+): { score: number; closed: boolean } | null {
+	const hours = openingHours?.trim();
+	if (!hours) return null;
+	if (hours === '24/7') return { score: 5, closed: false };
+	if (hours.toLowerCase() === 'closed') return { score: -40, closed: true };
+
+	const clockParts = new Intl.DateTimeFormat('en-US', {
+		timeZone: 'America/New_York',
+		weekday: 'short',
+		hour: '2-digit',
+		minute: '2-digit',
+		hourCycle: 'h23'
+	}).formatToParts(now);
+	const weekdayMap: Record<string, string> = {
+		Mon: 'Mo',
+		Tue: 'Tu',
+		Wed: 'We',
+		Thu: 'Th',
+		Fri: 'Fr',
+		Sat: 'Sa',
+		Sun: 'Su'
+	};
+	const weekday = weekdayMap[clockParts.find((part) => part.type === 'weekday')?.value ?? ''];
+	const hour = Number(clockParts.find((part) => part.type === 'hour')?.value);
+	const minute = Number(clockParts.find((part) => part.type === 'minute')?.value);
+	if (!weekday || !Number.isFinite(hour) || !Number.isFinite(minute)) return null;
+
+	const weekdays = ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su'];
+	const dayIndex = weekdays.indexOf(weekday);
+	let parsedAnyRule = false;
+
+	for (const segment of hours.split(';')) {
+		const match = segment
+			.trim()
+			.match(
+				/^(Mo|Tu|We|Th|Fr|Sa|Su)(?:-(Mo|Tu|We|Th|Fr|Sa|Su))?\s+(?:(\d{1,2}):(\d{2})-(\d{1,2}):(\d{2})|off)$/i
+			);
+		if (!match) continue;
+		parsedAnyRule = true;
+		const startDay = weekdays.findIndex((day) => day.toLowerCase() === match[1].toLowerCase());
+		const endDay = match[2]
+			? weekdays.findIndex((day) => day.toLowerCase() === match[2]?.toLowerCase())
+			: startDay;
+		const dayMatches =
+			startDay <= endDay
+				? dayIndex >= startDay && dayIndex <= endDay
+				: dayIndex >= startDay || dayIndex <= endDay;
+		if (!dayMatches) continue;
+		if (!match[3]) return { score: -40, closed: true };
+
+		const currentMinutes = hour * 60 + minute;
+		const startMinutes = Number(match[3]) * 60 + Number(match[4]);
+		const endMinutes = Number(match[5]) * 60 + Number(match[6]);
+		const isOpen =
+			endMinutes >= startMinutes
+				? currentMinutes >= startMinutes && currentMinutes < endMinutes
+				: currentMinutes >= startMinutes || currentMinutes < endMinutes;
+		if (isOpen) return { score: 5, closed: false };
+	}
+
+	return parsedAnyRule ? { score: -30, closed: true } : null;
+}
+
 function deriveReliability(reports: RestroomReport[], now: Date): number | null {
 	const cutoff = now.getTime() - 90 * 24 * 3_600_000;
 	const recent = reports.filter((report) => new Date(report.createdAt).getTime() >= cutoff);
@@ -104,7 +170,8 @@ export function calculateAccessConfidence(
 	if (restroom.officiallyPublic === false) score -= 6;
 	if (restroom.purchaseRequired === false) score += 6;
 	if (restroom.purchaseRequired === true) score -= 12;
-	if (restroom.openingHours?.trim() === '24/7') score += 5;
+	const hoursSignal = openingHoursSignal(restroom.openingHours, now);
+	score += hoursSignal?.score ?? 0;
 	score += sourceAgeScore(restroom, now);
 
 	for (const report of orderedReports.slice(0, 20)) {
@@ -120,6 +187,8 @@ export function calculateAccessConfidence(
 		status = 'confirmed';
 	} else if (latestReport && NEGATIVE_STATUSES.has(latestReport.status) && latestAgeHours <= 6) {
 		status = 'unavailable';
+	} else if (hoursSignal?.closed) {
+		status = 'unavailable';
 	} else if (score >= 60) {
 		status = 'likely';
 	} else {
@@ -130,7 +199,14 @@ export function calculateAccessConfidence(
 		orderedReports.find((report) => report.status === 'accessible')?.createdAt ?? null;
 	let reason: string;
 
-	if (latestReport && latestAgeHours <= 24 * 30) {
+	if (latestReport && NEGATIVE_STATUSES.has(latestReport.status) && latestAgeHours <= 6) {
+		reason = relativeReportReason(latestReport, now);
+	} else if (
+		hoursSignal?.closed &&
+		!(latestReport?.status === 'accessible' && latestAgeHours <= 3)
+	) {
+		reason = 'Published hours indicate this location is closed now';
+	} else if (latestReport && latestAgeHours <= 24 * 30) {
 		reason = relativeReportReason(latestReport, now);
 	} else if (restroom.source === 'gsu' && restroom.historicallyAccessible === true) {
 		reason = 'GSU audit found an accessible restroom; no recent confirmation';

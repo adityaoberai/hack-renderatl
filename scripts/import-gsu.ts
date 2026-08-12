@@ -26,6 +26,15 @@ interface OsfApiItem {
 		download?: string;
 		files?: string;
 	};
+	relationships?: {
+		files?: {
+			links?: {
+				related?: {
+					href?: string;
+				};
+			};
+		};
+	};
 }
 
 interface OsfApiResponse {
@@ -124,12 +133,7 @@ const HEADER_ALIASES = {
 	],
 	soap: ['soap', 'soapavailable', 'soap_available'],
 	toiletPaper: ['toiletpaper', 'toilet_paper', 'toiletpaperavailable', 'toilet_paper_available'],
-	water: [
-		'wateravailable',
-		'water_available',
-		'runningwater',
-		'running_water'
-	],
+	water: ['wateravailable', 'water_available', 'runningwater', 'running_water'],
 	hours: ['openinghours', 'opening_hours', 'hours', 'hoursofoperation', 'hours_of_operation'],
 	accessible: [
 		'restroomavailable',
@@ -316,8 +320,9 @@ async function listOsfFiles(startUrl = OSF_FILES_API): Promise<OsfFile[]> {
 					name: item.attributes.name,
 					downloadUrl: item.links.download
 				});
-			} else if (item.attributes.kind === 'folder' && item.links.files) {
-				discovered.push(...(await listOsfFiles(item.links.files)));
+			} else if (item.attributes.kind === 'folder') {
+				const folderUrl = item.links.files ?? item.relationships?.files?.links?.related?.href;
+				if (folderUrl) discovered.push(...(await listOsfFiles(folderUrl)));
 			}
 		}
 		nextUrl = page.links.next;
@@ -452,7 +457,14 @@ async function geocodeAddress(address: string): Promise<Coordinates | null> {
 	const matches = (await response.json()) as Array<{ lat: string; lon: string }>;
 	const latitude = Number(matches[0]?.lat);
 	const longitude = Number(matches[0]?.lon);
-	return Number.isFinite(latitude) && Number.isFinite(longitude) ? { latitude, longitude } : null;
+	return Number.isFinite(latitude) &&
+		Number.isFinite(longitude) &&
+		latitude >= 33.6 &&
+		latitude <= 33.9 &&
+		longitude >= -84.55 &&
+		longitude <= -84.28
+		? { latitude, longitude }
+		: null;
 }
 
 interface Coordinates {
@@ -581,6 +593,7 @@ const requestedFile =
 	requestedFileIndex >= 0 ? process.argv[requestedFileIndex + 1]?.toLowerCase() : null;
 const writeSeed = argumentsSet.has('--write-seed');
 const geocode = argumentsSet.has('--geocode');
+const allowPartial = argumentsSet.has('--allow-partial');
 
 console.log(`Discovering public files from ${OSF_FILES_API}`);
 const allFiles = await listOsfFiles();
@@ -614,6 +627,17 @@ const normalized = candidates.flatMap((file) =>
 const deduplicated = [...new Map(normalized.map((record) => [record.sourceId, record])).values()];
 const complete = await addMissingCoordinates(deduplicated, geocode);
 if (complete.length === 0) throw new Error('No records had usable or geocodable coordinates.');
+if (complete.length !== 262 && !allowPartial) {
+	throw new Error(
+		`Normalized ${complete.length} locations, but the published study audited 262. Review the printed headers or pass --allow-partial explicitly.`
+	);
+}
+const accessibleCount = complete.filter(
+	(restroom) => restroom.historicallyAccessible === true
+).length;
+console.log(
+	`Normalized ${complete.length} locations; ${accessibleCount} map to historically accessible.`
+);
 
 if (writeSeed) {
 	const seedPath = resolve('src/lib/data/gsu-restrooms.json');
