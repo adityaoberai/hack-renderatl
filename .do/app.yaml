@@ -1,10 +1,15 @@
 # DigitalOcean App Platform spec for Relief ATL.
 #
-# Create the app from this file:
+# Easiest path (CLI):
 #   doctl apps create --spec .do/app.yaml
 #
-# …or in the control panel: Apps → Create App → GitHub → adityaoberai/hack-renderatl,
-# then Edit App Spec and paste this in.
+# Control panel path:
+#   Apps -> Create App -> GitHub -> adityaoberai/hack-renderatl
+#   then Settings -> App Spec -> Edit, and paste this in.
+#
+# Note: the App Spec editor only appears AFTER the app exists. There is no box
+# to paste YAML into during the create flow, so either use doctl above, or
+# create the app from the repo first and then paste this over the generated spec.
 #
 # The app runs with no database. It falls back to the public datasets committed
 # under src/lib/server/data/. Add DATABASE_URL to put Tiger Data behind it and
@@ -17,10 +22,19 @@ services:
   - name: web
     environment_slug: node-js
 
+    # Requires DigitalOcean's GitHub app to be installed and authorized for this
+    # repo. If the spec is rejected with a GitHub authentication error, connect
+    # it under Settings -> Source, or swap this block for the `git` one below,
+    # which works for any public repo with no connection at all. The trade-off
+    # is that you lose automatic redeploys on push.
     github:
       repo: adityaoberai/hack-renderatl
       branch: main
       deploy_on_push: true
+
+    # git:
+    #   repo_clone_url: https://github.com/adityaoberai/hack-renderatl.git
+    #   branch: main
 
     build_command: npm run build
     run_command: node build
@@ -53,8 +67,10 @@ services:
         scope: RUN_TIME
 
       # Tiger Data. Leave this out to run on the bundled public datasets; set it
-      # (as an encrypted secret) to make the reports hypertable the system of record.
+      # (as an encrypted secret) to make the reports hypertable the system of
+      # record. Paste the real value into the control panel rather than
+      # committing it here.
       # - key: DATABASE_URL
-      #   value: postgres://tsdbadmin:PASSWORD@HOST.tsdb.cloud.timescale.com:39999/tsdb?sslmode=require
+      #   value: postgres://tsdbadmin:PASSWORD@HOST.tsdb.cloud.timescale.com:PORT/tsdb?sslmode=require
       #   type: SECRET
       #   scope: RUN_TIME
