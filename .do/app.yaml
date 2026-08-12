@@ -1,0 +1,60 @@
+# DigitalOcean App Platform spec for Relief ATL.
+#
+# Create the app from this file:
+#   doctl apps create --spec .do/app.yaml
+#
+# …or in the control panel: Apps → Create App → GitHub → adityaoberai/hack-renderatl,
+# then Edit App Spec and paste this in.
+#
+# The app runs with no database. It falls back to the public datasets committed
+# under src/lib/server/data/. Add DATABASE_URL to put Tiger Data behind it and
+# make community reports durable.
+
+name: relief-atl
+region: nyc
+
+services:
+  - name: web
+    environment_slug: node-js
+
+    github:
+      repo: adityaoberai/hack-renderatl
+      branch: main
+      deploy_on_push: true
+
+    build_command: npm run build
+    run_command: node build
+
+    http_port: 8080
+    instance_count: 1
+    instance_size_slug: apps-s-1vcpu-0.5gb
+
+    health_check:
+      http_path: /
+      initial_delay_seconds: 20
+      period_seconds: 30
+
+    envs:
+      # The Node buildpack sets NODE_ENV=production, which would make `npm ci`
+      # skip devDependencies, but vite, svelte and tailwind all live there and
+      # are needed to build. Keep them installed.
+      - key: NPM_CONFIG_PRODUCTION
+        value: 'false'
+        scope: BUILD_TIME
+
+      # adapter-node sits behind DigitalOcean's proxy, so it has to be told where
+      # to read the real scheme and host from. Without this SvelteKit computes
+      # http:// origins on an https:// site.
+      - key: PROTOCOL_HEADER
+        value: x-forwarded-proto
+        scope: RUN_TIME
+      - key: HOST_HEADER
+        value: x-forwarded-host
+        scope: RUN_TIME
+
+      # Tiger Data. Leave this out to run on the bundled public datasets; set it
+      # (as an encrypted secret) to make the reports hypertable the system of record.
+      # - key: DATABASE_URL
+      #   value: postgres://tsdbadmin:PASSWORD@HOST.tsdb.cloud.timescale.com:39999/tsdb?sslmode=require
+      #   type: SECRET
+      #   scope: RUN_TIME

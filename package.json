@@ -3,6 +3,9 @@
 	"private": true,
 	"version": "0.0.1",
 	"type": "module",
+	"engines": {
+		"node": ">=22.18"
+	},
 	"scripts": {
 		"dev": "vite dev",
 		"build": "vite build",
@@ -20,9 +23,8 @@
 		"data:all": "npm run data:gsu:geocode && npm run data:names && npm run data:gsu && npm run data:osm",
 		"db:setup": "node scripts/db.mjs setup",
 		"db:import": "node scripts/db.mjs import",
-		"db:seed": "node scripts/db.mjs seed",
 		"db:status": "node scripts/db.mjs status",
-		"db:bootstrap": "npm run db:setup && npm run db:import && npm run db:seed"
+		"db:bootstrap": "npm run db:setup && npm run db:import"
 	},
 	"devDependencies": {
 		"@eslint/js": "^10.0.1",
