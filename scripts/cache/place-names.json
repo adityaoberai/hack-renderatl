@@ -1,0 +1,502 @@
+{
+	"(33.8256373, -84.3652297)": {
+		"name": "Chipotle",
+		"address": "Sidney Marcus Boulevard Northeast, Atlanta, GA",
+		"nameSource": "openstreetmap (8 m)"
+	},
+	"(33.8256186, -84.3640355)": {
+		"name": "Arby's",
+		"address": "2555 Piedmont Road Northeast, Atlanta, GA"
+	},
+	"(33.8256091, -84.3636613)": {
+		"name": "Hair Studio",
+		"address": "Sidney Marcus Boulevard Northeast, Atlanta, GA"
+	},
+	"(33.8254292, -84.3677758)": {
+		"name": "Chick-fil-A",
+		"address": "2580 Piedmont Road Northeast, Atlanta, GA"
+	},
+	"(33.8241616, -84.3637820)": {
+		"name": "Target",
+		"address": "2539 Piedmont Road Northeast, Atlanta, GA"
+	},
+	"(33.8238567, -84.3647404)": {
+		"name": "The Home Depot",
+		"address": "2525 Piedmont Road Northeast, Atlanta, GA"
+	},
+	"(33.8233033, -84.3694752)": {
+		"name": "Lindbergh Center",
+		"address": "Morosgo Drive Northeast, Atlanta, GA",
+		"nameSource": "openstreetmap (61 m)"
+	},
+	"(33.8230006, -84.3663528)": {
+		"name": "Kroger",
+		"address": "2452 Morosgo Way Northeast, Atlanta, GA"
+	},
+	"(33.8223158, -84.3670925)": {
+		"name": "Fiesta Food Market",
+		"address": "2455 Piedmont Road Northeast, Atlanta, GA"
+	},
+	"(33.7884555, -84.3713418)": {
+		"name": null,
+		"address": "Atlanta Beltline Northeast Trail, Atlanta, GA"
+	},
+	"(33.7883178, -84.3727416)": {
+		"name": "Magnolia Hall",
+		"address": "Welcome Plaza, Atlanta, GA",
+		"nameSource": "openstreetmap (14 m)"
+	},
+	"(33.7877825, -84.3744914)": {
+		"name": "Sharon E. Lester Tennis Center",
+		"address": "Active Oval, Atlanta, GA"
+	},
+	"(33.7854260, -84.3739660)": {
+		"name": "Piedmont Park Aquatic Center",
+		"address": "Active Oval, Atlanta, GA"
+	},
+	"(33.7840260, -84.3787122)": {
+		"name": "Willy's Mexican Grill",
+		"address": "Piedmont Avenue Northeast, Atlanta, GA",
+		"nameSource": "openstreetmap (12 m)"
+	},
+	"(33.7837540, -84.3788802)": {
+		"name": "Shake Shack",
+		"address": "1071 Piedmont Avenue Northeast, Atlanta, GA",
+		"nameSource": "openstreetmap (13 m)"
+	},
+	"(33.7821743, -84.3726883)": {
+		"name": null,
+		"address": "Atlanta, GA"
+	},
+	"(33.7785866, -84.4092971)": {
+		"name": "Domino's",
+		"address": "884 3rd Street Northwest, Atlanta, GA",
+		"nameSource": "openstreetmap (16 m)"
+	},
+	"(33.7783626, -84.3523176)": {
+		"name": "CVS Pharmacy",
+		"address": "North Highland Avenue Northeast, Atlanta, GA"
+	},
+	"(33.7778275, -84.3530092)": {
+		"name": "Intown Hardware",
+		"address": "842 North Highland Avenue Northeast, Atlanta, GA",
+		"nameSource": "openstreetmap (9 m)"
+	},
+	"(33.7772250, -84.4087261)": {
+		"name": "Savi Provisions - MStreet",
+		"address": "Marietta Street Northwest, Atlanta, GA",
+		"nameSource": "openstreetmap (17 m)"
+	},
+	"(33.7768212, -84.3661661)": {
+		"name": "The Home Depot",
+		"address": "650 Atlanta Beltline Eastside Trail, Atlanta, GA"
+	},
+	"(33.7757388, -84.3662426)": {
+		"name": "PetSmart",
+		"address": "650 Ponce de Leon Avenue Northeast, Atlanta, GA"
+	},
+	"(33.7756412, -84.3661970)": {
+		"name": "Staples",
+		"address": "650 Atlanta Beltline Eastside Trail, Atlanta, GA"
+	},
+	"(33.7749481, -84.3657947)": {
+		"name": "Whole Foods Market",
+		"address": "650 Ponce de Leon Avenue Northeast, Atlanta, GA"
+	},
+	"(33.7744442, -84.3658563)": {
+		"name": "Let's Ride Atlanta",
+		"address": "650 Ponce de Leon Avenue Northeast, Atlanta, GA"
+	},
+	"(33.7743397, -84.3691709)": {
+		"name": "Cook Out",
+		"address": "544 Ponce de Leon Avenue Northeast, Atlanta, GA"
+	},
+	"(33.7742653, -84.3618552)": {
+		"name": "Real Chow Baby",
+		"address": "Ponce de Leon Avenue Northeast, Atlanta, GA"
+	},
+	"(33.7742620, -84.3695994)": {
+		"name": "McDonald's",
+		"address": "526 Ponce de Leon Avenue Northeast, Atlanta, GA"
+	},
+	"(33.7740987, -84.3916726)": {
+		"name": "Floyd Field Residence Hall",
+		"address": "711 Techwood Drive Northwest, Atlanta, GA"
+	},
+	"(33.7740714, -84.3552415)": {
+		"name": "Ponce De Leon Branch Library",
+		"address": "980 Ponce de Leon Avenue Northeast, Atlanta, GA"
+	},
+	"(33.7739925, -84.3572263)": {
+		"name": "Highland Urgent Care and Family Medicine",
+		"address": "920 Ponce de Leon Avenue Northeast, Atlanta, GA",
+		"nameSource": "openstreetmap (10 m)"
+	},
+	"(33.7738637, -84.3653092)": {
+		"name": "CVS Pharmacy",
+		"address": "680 Ponce de Leon Avenue Northeast, Atlanta, GA"
+	},
+	"(33.7733415, -84.3709338)": {
+		"name": "Popeyes",
+		"address": "683 Boulevard Northeast, Atlanta, GA"
+	},
+	"(33.7730608, -84.3543691)": {
+		"name": "SunTrust",
+		"address": "664 Cleburne Terrace Northeast, Atlanta, GA"
+	},
+	"(33.7727749, -84.3664411)": {
+		"name": "Archer Paper Goods",
+		"address": "675 Ponce de Leon Avenue Northeast, Atlanta, GA"
+	},
+	"(33.7727626, -84.3966474)": {
+		"name": "Weber Space Science & Technology Building III",
+		"address": "Ferst Drive Northwest, Atlanta, GA",
+		"nameSource": "openstreetmap (31 m)"
+	},
+	"(33.7726506, -84.4107398)": {
+		"name": null,
+		"address": "658 Echo Street Northwest, Atlanta, GA"
+	},
+	"(33.7726221, -84.3959222)": {
+		"name": "John Saylor Coon Building",
+		"address": "654 Cherry Street Northwest, Atlanta, GA"
+	},
+	"(33.7722548, -84.4287753)": {
+		"name": "Bankhead",
+		"address": "639 Gary Avenue Northwest, Atlanta, GA",
+		"nameSource": "openstreetmap (15 m)"
+	},
+	"(33.7717963, -84.3635768)": {
+		"name": "725 Ponce",
+		"address": "725 Ponce de Leon Avenue Northeast, Atlanta, GA"
+	},
+	"(33.7715015, -84.3668907)": {
+		"name": "Sweetgreen",
+		"address": "North Avenue Northeast, Atlanta, GA"
+	},
+	"(33.7705631, -84.3955950)": {
+		"name": "Arthur M. Blank Family Youth YMCA",
+		"address": "Luckie Street Northwest, Atlanta, GA"
+	},
+	"(33.7670332, -84.3485665)": {
+		"name": "Sevananda",
+		"address": "467 Moreland Avenue Northeast, Atlanta, GA"
+	},
+	"(33.7633321,-84.3940450)": {
+		"name": "Bottle Cap Café",
+		"address": "Baker Street Northwest, Atlanta, GA",
+		"nameSource": "openstreetmap (29 m)"
+	},
+	"(33.7625352, -84.3489869)": {
+		"name": "Hattie B's Hot Chicken",
+		"address": "Moreland Avenue Northeast, Atlanta, GA"
+	},
+	"(33.7625090,-84.3954663)": {
+		"name": "Georgia Aquarium",
+		"address": "225 Baker Street Northwest, Atlanta, GA"
+	},
+	"(33.7619886, -84.3523860)": {
+		"name": "Horizon Theatre",
+		"address": "1105 Austin Avenue Northeast, Atlanta, GA"
+	},
+	"(33.7615956, -84.3929644)": {
+		"name": "Garden Walk",
+		"address": "Garden Walk, Atlanta, GA"
+	},
+	"(33.7614941, -84.3899148)": {
+		"name": "AmericasMart Building 3",
+		"address": "240 West Peachtree Street Northwest, Atlanta, GA"
+	},
+	"(33.7606127, -84.3951504)": {
+		"name": "Embassy Suites",
+		"address": "267 Marietta Street Northwest, Atlanta, GA"
+	},
+	"(33.7595226,-84.3465434)": {
+		"name": "Lowe's",
+		"address": "1280 Caroline Street Northeast, Atlanta, GA"
+	},
+	"(33.7593244,-84.3486822)": {
+		"name": "Best Buy",
+		"address": "1210 Caroline Street Northeast, Atlanta, GA"
+	},
+	"(33.7593127, -84.3936135)": {
+		"name": "Visitor Center",
+		"address": "Centennial Plaza, Atlanta, GA"
+	},
+	"(33.7588673, -84.3709743)": {
+		"name": "Helene S. Mills Multipurpose Center",
+		"address": "Grape Street Northeast, Atlanta, GA"
+	},
+	"(33.7587265, -84.3488632)": {
+		"name": "Peachtree Immediate Care",
+		"address": "1220 Caroline Street Northeast, Atlanta, GA",
+		"nameSource": "openstreetmap (9 m)"
+	},
+	"(33.7586245,-84.3741062)": {
+		"name": "Martin Luther King Junior Branch Atlanta-Fulton Public Library",
+		"address": "409 John Wesley Dobbs Avenue Northeast, Atlanta, GA"
+	},
+	"(33.7585933, -84.3486346)": {
+		"name": "Willy's Mexican Grill",
+		"address": "Caroline Street Northeast, Atlanta, GA",
+		"nameSource": "openstreetmap (8 m)"
+	},
+	"(33.7585701, -84.3480391)": {
+		"name": "Shane's Rib Shack",
+		"address": "1250 Caroline Street Northeast, Atlanta, GA",
+		"nameSource": "openstreetmap (52 m)"
+	},
+	"(33.7583572, -84.3484391)": {
+		"name": "Shane's Rib Shack",
+		"address": "Caroline Street Northeast, Atlanta, GA",
+		"nameSource": "openstreetmap (8 m)"
+	},
+	"(33.7581205,-84.3967738)": {
+		"name": "Mangum Street Southwest",
+		"address": "Mangum Street Southwest, Atlanta, GA"
+	},
+	"(33.7577804, -84.3877534)": {
+		"name": "Forsyth Street Northwest",
+		"address": "Forsyth Street Northwest, Atlanta, GA"
+	},
+	"(33.7577542, -84.3882625)": {
+		"name": "Atlanta Central Library",
+		"address": "1;ONE Margaret Mitchell Square, Atlanta, GA"
+	},
+	"(33.7576951, -84.3947521)": {
+		"name": "The CTR",
+		"address": "190 Marietta Street Northwest, Atlanta, GA",
+		"nameSource": "openstreetmap (7 m)"
+	},
+	"(33.7574019, -84.3867172)": {
+		"name": "British Consulate",
+		"address": "133 Peachtree Street Northeast, Atlanta, GA"
+	},
+	"(33.7573576, -84.3716828)": {
+		"name": "Circle K",
+		"address": "111 Boulevard Northeast, Atlanta, GA"
+	},
+	"(33.7569977, -84.3898242)": {
+		"name": "The Side Bar",
+		"address": "33 Gilmer Street Southeast, Atlanta, GA"
+	},
+	"(33.7568491, -84.3874723": {
+		"name": "GSU College of Law",
+		"address": "33 Gilmer Street Southeast, Atlanta, GA",
+		"nameSource": "openstreetmap (23 m)"
+	},
+	"(33.7564120, -84.3886687)": {
+		"name": "GSU 55",
+		"address": "33 Gilmer Street Southeast, Atlanta, GA"
+	},
+	"(33.7564057,-84.3731868)": {
+		"name": "Martin Luther King Jr. National Historic Site",
+		"address": "Auburn Avenue Northeast, Atlanta, GA",
+		"nameSource": "openstreetmap (26 m)"
+	},
+	"(33.7558172, -84.3890233)": {
+		"name": "Figo City Fast",
+		"address": "33 Gilmer Street Southeast, Atlanta, GA"
+	},
+	"(33.7557723, -84.3838312)": {
+		"name": "Alonzo Herndon",
+		"address": "Auburn Avenue Northeast, Atlanta, GA"
+	},
+	"(33.7553584, -84.3718950)": {
+		"name": "Historic Fire Station Number 6",
+		"address": "Auburn Avenue Northeast, Atlanta, GA",
+		"nameSource": "openstreetmap (2 m)"
+	},
+	"(33.7553344, -84.3839599)": {
+		"name": "Auburn Avenue Research Library",
+		"address": "101 Auburn Avenue Northeast, Atlanta, GA"
+	},
+	"(33.7542096, -84.3890635)": {
+		"name": "One Park Place",
+		"address": "1 Park Place Southeast, Atlanta, GA"
+	},
+	"(33.7541820,-84.3774800)": {
+		"name": "Atlanta Fire Rescue Department - Station 4",
+		"address": "Tanner Street Southeast, Atlanta, GA"
+	},
+	"(33.7540889,-84.3867390)": {
+		"name": "Herzing University, Atlanta",
+		"address": "33 Gilmer Street Southeast, Atlanta, GA",
+		"nameSource": "openstreetmap (42 m)"
+	},
+	"(33.7538938,-84.3817766)": {
+		"name": "Hughes Spalding Hospital",
+		"address": "35 Jesse Hill Junior Drive Southeast, Atlanta, GA"
+	},
+	"(33.7536128, -84.3849346)": {
+		"name": "Dahlberg Hall",
+		"address": "30 Courtland Street Southeast, Atlanta, GA"
+	},
+	"(33.7532515, -84.3874113)": {
+		"name": "GSU Quad",
+		"address": "33 Gilmer Street Southeast, Atlanta, GA"
+	},
+	"(33.7530859, -84.3859481)": {
+		"name": "Georgia State University",
+		"address": "33 Gilmer Street Southeast, Atlanta, GA",
+		"nameSource": "openstreetmap (23 m)"
+	},
+	"(33.7529853, -84.3862763)": {
+		"name": "Library North",
+		"address": "100 Decatur Street Southeast, Atlanta, GA"
+	},
+	"(33.7529315, -84.3856839)": {
+		"name": "Unity Plaza",
+		"address": "Unity Plaza, Atlanta, GA"
+	},
+	"(33.7528730, -84.3849470)": {
+		"name": "Student Center East",
+		"address": "33 Gilmer Street Southeast, Atlanta, GA",
+		"nameSource": "openstreetmap (34 m)"
+	},
+	"(33.7528697, -84.3876275)": {
+		"name": "Classroom South",
+		"address": "38 Decatur Street Southeast, Atlanta, GA"
+	},
+	"(33.7528189,-84.3758092)": {
+		"name": "Butler Park Recreation Center",
+		"address": "65 William Holmes Borders Senior Drive Southeast, Atlanta, GA",
+		"nameSource": "openstreetmap (27 m)"
+	},
+	"(33.7526079, -84.3835341)": {
+		"name": "Grady Health System",
+		"address": "Jesse Hill Junior Drive Southeast, Atlanta, GA"
+	},
+	"(33.7524325, -84.3869224)": {
+		"name": "Classroom South",
+		"address": "100 Decatur Street Southeast, Atlanta, GA",
+		"nameSource": "openstreetmap (59 m)"
+	},
+	"(33.7522928, -84.3823262)": {
+		"name": "Starbucks",
+		"address": "80 Jesse Hill Junior Drive Southeast, Atlanta, GA"
+	},
+	"(33.7520489, -84.3764662)": {
+		"name": "Martin Luther King Jr. Recreation Center and Aquatic Center",
+		"address": "Hilliard Street Southeast, Atlanta, GA"
+	},
+	"(33.7519491, -84.3855592)": {
+		"name": "Urban Life Building",
+		"address": "140 Decatur Street Southeast, Atlanta, GA",
+		"nameSource": "openstreetmap (34 m)"
+	},
+	"(33.7516918, -84.3885918)": {
+		"name": "Georgia Railroad Freight Depot",
+		"address": "65 Martin Luther King Jr Drive Southeast, Atlanta, GA"
+	},
+	"(33.7516208, -84.4131869)": {
+		"name": "Robert W. Woodruff Library, Atlanta University Center",
+		"address": "111 James P Brawley Drive Southwest, Atlanta, GA"
+	},
+	"(33.7514092, -84.3918131)": {
+		"name": "Fulton County Sherrif's Office",
+		"address": "141 Pryor Street, Atlanta, GA"
+	},
+	"(33.7512431, -84.3853199)": {
+		"name": "Petit Science Center",
+		"address": "33 Gilmer Street Southeast, Atlanta, GA",
+		"nameSource": "openstreetmap (47 m)"
+	},
+	"(33.7509651, -84.3855820)": {
+		"name": "Willy's Mexicana Grill",
+		"address": "100 Piedmont Avenue Southeast, Atlanta, GA"
+	},
+	"(33.7507998, -84.3742064)": {
+		"name": "Mercy Care",
+		"address": "424 Decatur Street Southeast, Atlanta, GA"
+	},
+	"(33.7499919, -84.3860829)": {
+		"name": "Georgia State",
+		"address": "2 Martin Luther King Jr Drive Southeast, Atlanta, GA"
+	},
+	"(33.7499098, -84.3904520)": {
+		"name": "Georgia Department of Public Safety",
+		"address": "266 Shirley Clarke Franklin Boulevard Southwest, Atlanta, GA",
+		"nameSource": "openstreetmap (66 m)"
+	},
+	"(33.7498600, -84.4125740)": {
+		"name": "Henderson Student Center",
+		"address": "795 Atlanta Student Movement Boulevard Southwest, Atlanta, GA"
+	},
+	"(33.7496772, -84.3893424)": {
+		"name": "Central Presbyterian Church",
+		"address": "201 Washington Street Southwest, Atlanta, GA"
+	},
+	"(33.7490324, -84.3879484)": {
+		"name": "Capitol Hill Post Office",
+		"address": "206 Washington Street Southwest, Atlanta, GA"
+	},
+	"(33.7482103, -84.4161558)": {
+		"name": "Benjamin E. Mays National Memorial",
+		"address": "Atlanta Student Movement Boulevard Southwest, Atlanta, GA"
+	},
+	"(33.7433006, -84.3491007)": {
+		"name": "Cook Out",
+		"address": "1109 McPherson Avenue Southeast, Atlanta, GA",
+		"nameSource": "openstreetmap (50 m)"
+	},
+	"(33.7430800, -84.3482259)": {
+		"name": "East Atlanta Branch Library",
+		"address": "400 Flat Shoals Avenue Southeast, Atlanta, GA"
+	},
+	"(33.7426133, -84.3494992)": {
+		"name": "Wendy's",
+		"address": "415 Moreland Avenue Southeast, Atlanta, GA",
+		"nameSource": "openstreetmap (37 m)"
+	},
+	"(33.7422838, -84.3495432)": {
+		"name": "Wendy's",
+		"address": "427 Moreland Avenue Southeast, Atlanta, GA"
+	},
+	"(33.7418232, -84.3477407)": {
+		"name": "Atlanta Fire Rescue Department - Station 13",
+		"address": "431 Flat Shoals Avenue Southeast, Atlanta, GA"
+	},
+	"(33.7417521, -84.3494966)": {
+		"name": "McDonald's",
+		"address": "443 Moreland Avenue Southeast, Atlanta, GA"
+	},
+	"(33.7400364, -84.4143185)": {
+		"name": "Taco Bell",
+		"address": "545 Lee Street Southwest, Atlanta, GA"
+	},
+	"(33.7392786, -84.4160833)": {
+		"name": null,
+		"address": "Atlanta, GA"
+	},
+	"(33.7390859, -84.3485323)": {
+		"name": null,
+		"address": "562 Portland Avenue Southeast, Atlanta, GA"
+	},
+	"(33.7382417, -84.4174560)": {
+		"name": "CVS Pharmacy",
+		"address": "Ralph David Abernathy Boulevard, Atlanta, GA"
+	},
+	"(33.7380092, -84.4168133)": {
+		"name": "Goodwill",
+		"address": "Ralph David Abernathy Boulevard, Atlanta, GA"
+	},
+	"(33.7379389, -84.3471131)": {
+		"name": "Brownwood Park Playground",
+		"address": "1273 Emerson Street Southeast, Atlanta, GA",
+		"nameSource": "openstreetmap (37 m)"
+	},
+	"(33.7364830, -84.4110683)": {
+		"name": null,
+		"address": "Murphy Avenue Southwest, Atlanta, GA"
+	},
+	"(33.7361902, -84.4177263)": {
+		"name": "Big Bear Supermarket",
+		"address": "691 Joseph E. Lowery Boulevard, Atlanta, GA",
+		"nameSource": "openstreetmap (70 m)"
+	},
+	"(33.7360921, -84.4137485)": {
+		"name": "Dero",
+		"address": "680 Lee Street Southwest, Atlanta, GA"
+	}
+}
