@@ -309,7 +309,11 @@
 				<div class="flex justify-between gap-2 border-b border-line/70 py-1">
 					<dt class="text-ink-muted">Event store</dt>
 					<dd class="font-semibold text-ink">
-						{data.summary.mode === 'tigerdata' ? 'Tiger Data' : 'Local demo store'}
+						{data.summary.degraded
+							? 'Tiger Data (unreachable)'
+							: data.summary.mode === 'tigerdata'
+								? 'Tiger Data'
+								: 'Local demo store'}
 					</dd>
 				</div>
 			</dl>

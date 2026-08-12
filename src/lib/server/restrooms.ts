@@ -37,16 +37,36 @@ export function getStore(): RestroomStore {
 }
 
 /**
+ * Set when a Tiger Data query has failed and we served bundled data instead.
+ *
+ * Falling back silently once hid a broken SQL cast for an entire session: the
+ * app looked like it was simply running without a database. Degrading is still
+ * the right behaviour, but it has to be visible.
+ */
+let degradedSince: { at: string; message: string } | null = null;
+
+export function degradedState() {
+	return degradedSince;
+}
+
+/**
  * Tiger Data is preferred, but a database hiccup mid-demo must not take the app
- * down. If a query throws we fall back to the bundled public datasets and say so.
+ * down. If a query throws we fall back to the bundled public datasets and say so,
+ * loudly.
  */
 async function withFallback<T>(run: (store: RestroomStore) => Promise<T>): Promise<T> {
 	const store = getStore();
 	try {
-		return await run(store);
+		const result = await run(store);
+		if (store.mode === 'tigerdata') degradedSince = null;
+		return result;
 	} catch (error) {
 		if (store.mode === 'memory') throw error;
-		console.error('[relief-atl] Tiger Data query failed, serving from bundled public data:', error);
+		const message = error instanceof Error ? error.message : String(error);
+		degradedSince = { at: new Date().toISOString(), message };
+		console.error('[relief-atl] Tiger Data query FAILED, serving bundled public data instead.');
+		console.error('[relief-atl] Fix this: the database is configured but not working.');
+		console.error(error);
 		return run(getMemoryStore());
 	}
 }
@@ -208,8 +228,11 @@ export async function submitReport(
 	return { report, detail };
 }
 
-export async function getSummary(): Promise<StoreSummary> {
-	return withFallback((store) => store.summary());
+export async function getSummary(): Promise<
+	StoreSummary & { degraded: { at: string; message: string } | null }
+> {
+	const summary = await withFallback((store) => store.summary());
+	return { ...summary, degraded: degradedState() };
 }
 
 export const REPORT_STATUSES: ReportStatus[] = [

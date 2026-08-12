@@ -92,7 +92,7 @@ export class TigerDataStore implements RestroomStore {
 		const rows = await this.sql`
 			SELECT * FROM reports
 			WHERE restroom_id = ANY(${this.sql.array(ids)}::uuid[])
-			  AND created_at > NOW() - (${sinceDays} || ' days'):interval
+			  AND created_at > NOW() - (${sinceDays} || ' days')::interval
 			ORDER BY created_at DESC
 		`;
 		return groupReports(rows.map(rowToReport));
@@ -129,7 +129,7 @@ export class TigerDataStore implements RestroomStore {
 		const rows = await this.sql`
 			WITH slots AS (
 				SELECT generate_series(
-					date_trunc('hour', NOW()) - (${hours - 1} || ' hours'):interval,
+					date_trunc('hour', NOW()) - (${hours - 1} || ' hours')::interval,
 					date_trunc('hour', NOW()),
 					INTERVAL '1 hour'
 				) AS bucket
@@ -141,7 +141,7 @@ export class TigerDataStore implements RestroomStore {
 					COUNT(*) FILTER (WHERE status <> 'accessible') AS negative
 				FROM reports
 				WHERE restroom_id = ${id}
-				  AND created_at > NOW() - (${hours} || ' hours'):interval
+				  AND created_at > NOW() - (${hours} || ' hours')::interval
 				GROUP BY 1
 			)
 			SELECT slots.bucket,
@@ -160,17 +160,17 @@ export class TigerDataStore implements RestroomStore {
 
 	async summary(): Promise<StoreSummary> {
 		const [restroomCounts, reportStats] = await Promise.all([
-			this.sql`SELECT source, COUNT(*):int AS count FROM restrooms GROUP BY source`,
+			this.sql`SELECT source, COUNT(*)::int AS count FROM restrooms GROUP BY source`,
 			this.sql`
 				SELECT
-					COUNT(*):int                                                              AS total,
-					COUNT(*) FILTER (WHERE created_at > NOW() - INTERVAL '24 hours'):int      AS last24,
+					COUNT(*)::int                                                              AS total,
+					COUNT(*) FILTER (WHERE created_at > NOW() - INTERVAL '24 hours')::int      AS last24,
 					COUNT(*) FILTER (WHERE created_at > NOW() - INTERVAL '24 hours'
-					                   AND status = 'accessible'):int                         AS positive24,
+					                   AND status = 'accessible')::int                         AS positive24,
 					COUNT(*) FILTER (WHERE created_at > NOW() - INTERVAL '24 hours'
-					                   AND status <> 'accessible'):int                        AS negative24,
-					COUNT(*) FILTER (WHERE metadata->>'seeded' = 'true'):int                   AS seeded,
-					COUNT(DISTINCT restroom_id):int                                           AS distinct_restrooms,
+					                   AND status <> 'accessible')::int                        AS negative24,
+					COUNT(*) FILTER (WHERE metadata->>'seeded' = 'true')::int                   AS seeded,
+					COUNT(DISTINCT restroom_id)::int                                           AS distinct_restrooms,
 					MAX(created_at)                                                            AS latest
 				FROM reports
 			`

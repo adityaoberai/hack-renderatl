@@ -2,14 +2,17 @@
  * Tiger Data (PostgreSQL + TimescaleDB) connection.
  *
  * Reads `DATABASE_URL` from the process environment so the same module works
- * inside the SvelteKit server *and* in the plain-node import/seed scripts.
+ * inside the SvelteKit server *and* in the plain-node import scripts.
  *
- * When no connection string is configured the app falls back to an in-memory
- * store built from the same imported public datasets. That keeps a hackathon
- * demo alive on a flaky conference network: but Tiger Data is the system of
- * record whenever it is reachable.
+ * `dotenv/config` matters here. SvelteKit's dev server loads .env into
+ * `$env/dynamic/private` but not into `process.env`, so without this a local
+ * .env is silently ignored and the app quietly falls back to the in-memory
+ * store while looking like it is talking to Tiger Data. In production the
+ * platform sets real environment variables and there is no .env file to find,
+ * which makes this a harmless no-op.
  */
 
+import 'dotenv/config';
 import postgres from 'postgres';
 
 export type StoreMode = 'tigerdata' | 'memory';
