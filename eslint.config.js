@@ -34,8 +34,24 @@ export default defineConfig(
 		}
 	},
 	{
-		// Override or add rule settings here, such as:
-		// 'svelte/button-has-type': 'error'
-		rules: {}
+		rules: {
+			// `_`-prefixed bindings are intentional throwaways (destructuring a few
+			// keys off an object in order to drop them).
+			'@typescript-eslint/no-unused-vars': [
+				'error',
+				{ argsIgnorePattern: '^_', varsIgnorePattern: '^_', caughtErrorsIgnorePattern: '^_' }
+			],
+
+			// Our Map/Set/URLSearchParams instances are deliberately plain: MapView's
+			// marker registry and the query-string builders are internal caches that
+			// must not drive reactivity. SvelteMap/SvelteSet would add tracking
+			// overhead for state nothing renders from.
+			'svelte/prefer-svelte-reactivity': 'off',
+
+			// Internal navigation goes through `resolve()` from `$app/paths`. What
+			// remains are external, runtime-computed URLs — maps deep-links, OSF,
+			// PLOS, OpenStreetMap — which the rule cannot distinguish from routes.
+			'svelte/no-navigation-without-resolve': 'off'
+		}
 	}
 );

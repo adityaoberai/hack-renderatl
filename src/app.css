@@ -1,0 +1,146 @@
+@import 'tailwindcss';
+
+/* ---------------------------------------------------------------------------
+   Relief ATL design tokens.
+   Civic, paper-like, high contrast. No gradients, no glassmorphism.
+   Status colour is the single loudest thing on screen — it is the product.
+--------------------------------------------------------------------------- */
+@theme {
+	--font-sans:
+		'Inter', ui-sans-serif, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+		sans-serif;
+	--font-mono: ui-monospace, 'SF Mono', 'Cascadia Mono', Menlo, Consolas, monospace;
+
+	/* Surfaces */
+	--color-paper: #f4f3ef;
+	--color-surface: #ffffff;
+	--color-surface-sunken: #eceae4;
+
+	/* Ink */
+	--color-ink: #15191f;
+	--color-ink-muted: #56606e;
+	--color-ink-subtle: #838d9b;
+
+	/* Lines */
+	--color-line: #e0ded7;
+	--color-line-strong: #c8c5bb;
+
+	/* Civic accent */
+	--color-brand: #0d5b56;
+	--color-brand-hover: #0a4744;
+	--color-brand-soft: #e0eeec;
+	--color-brand-ink: #073a37;
+
+	/* Status: confirmed / recently used */
+	--color-ok: #14783c;
+	--color-ok-soft: #ddf2e3;
+	--color-ok-line: #93cfa8;
+	--color-ok-pin: #17944a;
+
+	/* Status: likely / probably fine */
+	--color-warn: #96560a;
+	--color-warn-soft: #fbeed4;
+	--color-warn-line: #e9bf72;
+	--color-warn-pin: #d08313;
+
+	/* Status: reported unavailable */
+	--color-bad: #ad2318;
+	--color-bad-soft: #fbe2df;
+	--color-bad-line: #eda69f;
+	--color-bad-pin: #cf3226;
+
+	/* Status: unverified / stale */
+	--color-unknown: #5b6573;
+	--color-unknown-soft: #ebeae5;
+	--color-unknown-line: #c4c2ba;
+	--color-unknown-pin: #77808d;
+
+	--radius-card: 0.875rem;
+
+	--shadow-sheet: 0 -8px 32px -12px rgb(21 25 31 / 0.22);
+	--shadow-lift: 0 1px 2px rgb(21 25 31 / 0.05), 0 8px 24px -14px rgb(21 25 31 / 0.28);
+}
+
+@layer base {
+	:root {
+		color-scheme: light;
+		-webkit-tap-highlight-color: transparent;
+	}
+
+	html,
+	body {
+		height: 100%;
+	}
+
+	body {
+		background-color: var(--color-paper);
+		color: var(--color-ink);
+		font-family: var(--font-sans);
+		font-synthesis-weight: none;
+		text-rendering: optimizeLegibility;
+		-webkit-font-smoothing: antialiased;
+		overscroll-behavior-y: none;
+	}
+
+	/* Visible, high-contrast focus for outdoor / one-handed use. */
+	:where(a, button, input, select, textarea, [tabindex]):focus-visible {
+		outline: 2px solid var(--color-brand);
+		outline-offset: 2px;
+		border-radius: 6px;
+	}
+
+	h1,
+	h2,
+	h3 {
+		letter-spacing: -0.021em;
+		text-wrap: balance;
+	}
+}
+
+@layer utilities {
+	.tabular {
+		font-variant-numeric: tabular-nums;
+	}
+
+	.no-scrollbar::-webkit-scrollbar {
+		display: none;
+	}
+	.no-scrollbar {
+		scrollbar-width: none;
+	}
+
+	/* Safe-area padding so the bottom sheet clears the iOS home indicator. */
+	.pb-safe {
+		padding-bottom: max(1rem, env(safe-area-inset-bottom));
+	}
+	.mb-safe {
+		margin-bottom: env(safe-area-inset-bottom);
+	}
+}
+
+/* MapLibre: strip the default chrome so the map reads as part of the product. */
+.maplibregl-ctrl-attrib {
+	font-family: var(--font-sans);
+	font-size: 10px;
+	background: rgb(255 255 255 / 0.82) !important;
+}
+.maplibregl-ctrl-attrib a {
+	color: var(--color-ink-muted);
+}
+.maplibregl-canvas:focus {
+	outline: none;
+}
+.maplibregl-popup-content {
+	padding: 0;
+	border-radius: 12px;
+	box-shadow: var(--shadow-lift);
+}
+
+@media (prefers-reduced-motion: reduce) {
+	*,
+	*::before,
+	*::after {
+		animation-duration: 0.001ms !important;
+		transition-duration: 0.001ms !important;
+	}
+}
